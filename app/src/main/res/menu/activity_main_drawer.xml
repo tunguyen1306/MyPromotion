@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home_layout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Trang chủ" />
+        <item
             android:id="@+id/nav_first_layout"
             android:icon="@drawable/ic_menu_camera"
             android:title="First Layout" />
@@ -14,6 +18,7 @@
             android:id="@+id/nav_third_layout"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Third Layout" />
+
     </group>
 
     <item android:title="Communicate">

@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }else if (id == R.id.nav_home_layout) {
+            fragmentManager.beginTransaction().replace(R.id.nav_home_layout,new ThirdFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
