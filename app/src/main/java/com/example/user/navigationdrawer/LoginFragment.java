@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 /**
  * Created by user on 12/31/15.
  */
-public class SecondFragment extends Fragment{
+public class LoginFragment extends Fragment{
 
     View myView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.second_layout, container, false);
+        myView = inflater.inflate(R.layout.nav_login, container, false);
         return myView;
     }
 }

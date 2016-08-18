@@ -81,9 +81,12 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
+        if (id == R.id.nav_login) { fragmentManager.beginTransaction().replace(R.id.content_frame, new LoginFragment())
+                 .commit();
+     }
 
 //        if (id == R.id.nav_first_layout) {
 //            fragmentManager.beginTransaction()
@@ -112,4 +115,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

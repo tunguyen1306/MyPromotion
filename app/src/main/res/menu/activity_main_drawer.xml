@@ -8,7 +8,9 @@
 </group>
 <item android:title="Communicate">
     <group android:id="@+id/gr_second" android:checkableBehavior="single">
-        <item android:id="@+id/nav_manager_post" android:icon="@drawable/ic_menu_slideshow" android:title="Sản phẩm đã lưu"/>
+        <item    android:id="@+id/nav_third_layout" android:icon="@drawable/ic_menu_slideshow" android:title="Sản phẩm đã lưu"/>
+
+
         <item android:id="@+id/nav_post" android:icon="@drawable/ic_menu_slideshow" android:title="Hộp thư"/>
         <item android:id="@+id/nav_share_post" android:icon="@drawable/ic_menu_slideshow" android:title="Thông tin tài khoản"/>
         <item android:id="@+id/nav_addfiend" android:icon="@drawable/ic_menu_slideshow" android:title="Thông tin ứng dụng"/>
