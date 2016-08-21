@@ -1,7 +1,9 @@
 package com.example.user.navigationdrawer;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,18 +16,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
+import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static String PREF_NAME = "pref";
+    ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +45,37 @@ public class MainActivity extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+        if (User.Login){
+        TextView txtshow=(TextView)header.findViewById(R.id.txtShowName);
+        txtshow.setText(User.DisplayName);
+            TextView txtshowEmail=(TextView)header.findViewById(R.id.txtShowEmail);
+            txtshowEmail.setText(User.email);
+        img=(ImageView)header.findViewById(R.id.imageView);
+        Picasso.with(getApplicationContext()).load(User.UrlImage).into(img);
+            hideItem();
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RestorReferen(getApplicationContext());
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savePreferen(getApplicationContext());
     }
 
     @Override
@@ -57,6 +83,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+
         } else {
             super.onBackPressed();
         }
@@ -80,7 +107,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -90,36 +116,98 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
-        if (id == R.id.nav_login) { fragmentManager.beginTransaction().replace(R.id.content_frame, new LoginFragment())
-                 .commit();
-     }
+//        if (id == R.id.nav_login) {
+//            fragmentManager.beginTransaction().replace(R.id.content_frame, new LoginFragment())
+//                 .commit();
+//
+//
+//     }
+//        Intent login= new Intent(getApplicationContext(),Login.class);
+//        startActivity(login);
 
-//        if (id == R.id.nav_first_layout) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.content_frame
-//                            , new FirstFragment())
-//                    .commit();
-//        } else if (id == R.id.nav_second_layout) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.content_frame
-//                            , new SecondFragment())
-//                    .commit();
-//        } else if (id == R.id.nav_third_layout) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.content_frame
-//                            , new ThirdFragment())
-//                    .commit();
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }else if (id == R.id.nav_home_layout) {
-//            fragmentManager.beginTransaction().replace(R.id.nav_home_layout,new ThirdFragment()).commit();
-//        }
+
+        switch (id){
+            case R.id.nav_login:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new LoginFragment()).commit();
+                break;
+            case R.id.nav_register:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new Register()).commit();
+                break;
+            case R.id.nav_logout:
+                User.Login=false;
+                savePreferen(getApplicationContext());
+                Toast.makeText(getApplicationContext(),"Bạn đã đăng xuất", Toast.LENGTH_SHORT).show();
+                FacebookSdk.sdkInitialize(MainActivity.this);
+                LoginManager.getInstance().logOut();
+                onResume();
+                Intent login= new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(login);
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private SharedPreferences  getPreferent(Context context)
+    {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+    private void  savePreferen(Context context)
+    {
+        SharedPreferences.Editor edit=getPreferent(context).edit();
+        if (User.Login)
+        {
+            edit.putBoolean("Login",User.Login);
+            edit.putString("DisplayName",User.DisplayName);
+            edit.putString("UrlImage",User.UrlImage);
+            edit.putString("Email",User.email);
+            edit.putString("Gender",User.gender);
+            edit.putString("facebookID",User.facebookID);
+
+
+
+
+        }else  {
+            edit.putBoolean("Login",false);
+            edit.putString("DisplayName","");
+            edit.putString("UrlImage","");
+            edit.putString("Email","");
+            edit.putString("Gender","");
+            edit.putString("facebookID","");
+        }
+        edit.clear();
+        edit.commit();
+    }
+    private  void RestorReferen(Context context)
+    {
+        if (User.Login)
+        {
+
+            User.Login=getPreferent(context).getBoolean("Login",true);
+            User.DisplayName=getPreferent(context).getString("DisplayName","");
+            User.UrlImage=getPreferent(context).getString("UrlImage","");
+            User.email=getPreferent(context).getString("Email","");
+            User.gender=getPreferent(context).getString("Gender","");
+            User.facebookID=getPreferent(context).getString("facebookID","");
+
+
+        }else  {
+
+            User.Login=getPreferent(context).getBoolean("Login",false);
+            User.DisplayName=getPreferent(context).getString("DisplayName","");
+            User.UrlImage=getPreferent(context).getString("UrlImage","");
+            User.email=getPreferent(context).getString("Email","");
+            User.gender=getPreferent(context).getString("Gender","");
+            User.facebookID=getPreferent(context).getString("facebookID","");
+        }
+    }
+    private void hideItem()
+    {
+        NavigationView  navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_login).setVisible(false);
+        nav_Menu.findItem(R.id.nav_register).setVisible(false);
     }
 
 }
