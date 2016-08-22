@@ -46,7 +46,7 @@ public class Register extends Fragment {
                 Email=editEmail.getText().toString();
                 Phone=editPhone.getText().toString();
                 Toast.makeText(getActivity(),"Đăng ký thành công",Toast.LENGTH_SHORT);
-                
+
             }
         });
         return view;
