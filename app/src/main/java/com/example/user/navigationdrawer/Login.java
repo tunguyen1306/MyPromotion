@@ -57,9 +57,9 @@ public class Login extends AppCompatActivity {
                                 String gender = object.getString("gender");
                                 String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
                                 User user=new User();
-                                user.Login=true;
-                                user.DisplayName=Username;
-                                user.UrlImage = imgUrl;
+                                User.Login=true;
+                                User.FullName=Username;
+                                User.UrlImage = imgUrl;
 
                                 savePreference(getApplicationContext());
                                 finish();
@@ -128,7 +128,7 @@ public class Login extends AppCompatActivity {
                                     String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
                                     User user=new User();
                                     user.Login=true;
-                                    user.DisplayName=Username;
+                                    User.FullName=Username;
                                     user.UrlImage = imgUrl;
                                     savePreference(getApplicationContext());
                                     finish();
@@ -179,7 +179,7 @@ public class Login extends AppCompatActivity {
         if (User.Login)
         {
             edit.putBoolean("Login",User.Login);
-            edit.putString("DisplayName",User.DisplayName);
+            edit.putString("DisplayName",User.FullName);
             edit.putString("UrlImage",User.UrlImage);
         }else  {
             edit.putBoolean("Login",false);
@@ -192,7 +192,7 @@ public class Login extends AppCompatActivity {
     private  void RestorReference(Context context)
     {
 
-        User.DisplayName=getPreferent(context).getString("DisplayName","");
+        User.FullName=getPreferent(context).getString("DisplayName","");
         User.UrlImage=getPreferent(context).getString("UrlImage","");
     }
 

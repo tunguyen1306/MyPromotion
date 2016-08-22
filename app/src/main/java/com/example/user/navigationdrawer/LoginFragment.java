@@ -1,6 +1,7 @@
 package com.example.user.navigationdrawer;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +30,7 @@ public class LoginFragment extends Fragment{
     View view;
     private CallbackManager callbackManager;
     LoginButton loginButton;
+    //Login Facebook
     private FacebookCallback<LoginResult> loginResultFacebookCallback=new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
@@ -45,14 +47,21 @@ public class LoginFragment extends Fragment{
                                 String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
 
                                 User.Login=true;
-                                User.DisplayName=Username;
+                                User.FullName=Username;
                                 User.UrlImage = imgUrl;
                                 User.email=Email;
                                 User.gender=gender;
                                 User.facebookID=id;
-                                savePreferen(getActivity());
-                                Intent Login=new Intent(getActivity(),MainActivity.class);
-                                startActivity(Login);
+                                User.savePreferen(getActivity());
+//                                Intent Login=new Intent(getActivity(),MainActivity.class);
+//                                startActivity(Login);
+                                FragmentManager fragmentManager = getFragmentManager();
+
+                 fragmentManager.beginTransaction().replace(R.id.content_frame, new Register())
+                 .commit();
+
+
+
                             }
                             catch (JSONException e)
                             {
@@ -77,6 +86,7 @@ public class LoginFragment extends Fragment{
 
         }
     };
+    //End Login Facebook
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,51 +112,5 @@ public class LoginFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode,data);
     }
-    private SharedPreferences getPreferent(Context context)
-    {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-    }
-    private void  savePreferen(Context context)
-    {
-        SharedPreferences.Editor edit=getPreferent(context).edit();
-        if (User.Login)
-        {
-            edit.putBoolean("Login",User.Login);
-            edit.putString("DisplayName",User.DisplayName);
-            edit.putString("UrlImage",User.UrlImage);
-            edit.putString("Email",User.email);
-            edit.putString("Gender",User.gender);
-            edit.putString("facebookID",User.facebookID);
-        }else  {
-            edit.putBoolean("Login",false);
-            edit.putString("DisplayName","");
-            edit.putString("UrlImage","");
-            edit.putString("Email","");
-            edit.putString("Gender","");
-            edit.putString("facebookID","");
-        }
-        edit.clear();
-        edit.commit();
-    }
-    private  void RestorReferen(Context context)
-    {
-        if (User.Login)
-        {
-            User.Login=getPreferent(context).getBoolean("Login",true);
-            User.DisplayName=getPreferent(context).getString("DisplayName","");
-            User.UrlImage=getPreferent(context).getString("UrlImage","");
-           User.email=getPreferent(context).getString("Email","");
-            User.gender=getPreferent(context).getString("Gender","");
-           User.facebookID=getPreferent(context).getString("facebookID","");
-        }else  {
 
-            User.Login=getPreferent(context).getBoolean("Login",false);
-            User.DisplayName=getPreferent(context).getString("DisplayName","");
-            User.UrlImage=getPreferent(context).getString("UrlImage","");
-            User.email=getPreferent(context).getString("Email","");
-            User.gender=getPreferent(context).getString("Gender","");
-            User.facebookID=getPreferent(context).getString("facebookID","");
-        }
-
-    }
 }

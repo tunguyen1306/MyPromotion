@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static String PREF_NAME = "pref";
+
     ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
         if (User.Login){
         TextView txtshow=(TextView)header.findViewById(R.id.txtShowName);
-        txtshow.setText(User.DisplayName);
+        txtshow.setText(User.FullName);
             TextView txtshowEmail=(TextView)header.findViewById(R.id.txtShowEmail);
             txtshowEmail.setText(User.email);
         img=(ImageView)header.findViewById(R.id.imageView);
@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        RestorReferen(getApplicationContext());
+        User.RestorReferen(getApplicationContext());
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        savePreferen(getApplicationContext());
+        User.savePreferen(getApplicationContext());
     }
 
     @Override
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 User.Login=false;
-                savePreferen(getApplicationContext());
+                User.savePreferen(getApplicationContext());
                 Toast.makeText(getApplicationContext(),"Bạn đã đăng xuất", Toast.LENGTH_SHORT).show();
                 FacebookSdk.sdkInitialize(MainActivity.this);
                 LoginManager.getInstance().logOut();
@@ -149,59 +149,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private SharedPreferences  getPreferent(Context context)
-    {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-    }
-    private void  savePreferen(Context context)
-    {
-        SharedPreferences.Editor edit=getPreferent(context).edit();
-        if (User.Login)
-        {
-            edit.putBoolean("Login",User.Login);
-            edit.putString("DisplayName",User.DisplayName);
-            edit.putString("UrlImage",User.UrlImage);
-            edit.putString("Email",User.email);
-            edit.putString("Gender",User.gender);
-            edit.putString("facebookID",User.facebookID);
 
-
-
-
-        }else  {
-            edit.putBoolean("Login",false);
-            edit.putString("DisplayName","");
-            edit.putString("UrlImage","");
-            edit.putString("Email","");
-            edit.putString("Gender","");
-            edit.putString("facebookID","");
-        }
-        edit.clear();
-        edit.commit();
-    }
-    private  void RestorReferen(Context context)
-    {
-        if (User.Login)
-        {
-
-            User.Login=getPreferent(context).getBoolean("Login",true);
-            User.DisplayName=getPreferent(context).getString("DisplayName","");
-            User.UrlImage=getPreferent(context).getString("UrlImage","");
-            User.email=getPreferent(context).getString("Email","");
-            User.gender=getPreferent(context).getString("Gender","");
-            User.facebookID=getPreferent(context).getString("facebookID","");
-
-
-        }else  {
-
-            User.Login=getPreferent(context).getBoolean("Login",false);
-            User.DisplayName=getPreferent(context).getString("DisplayName","");
-            User.UrlImage=getPreferent(context).getString("UrlImage","");
-            User.email=getPreferent(context).getString("Email","");
-            User.gender=getPreferent(context).getString("Gender","");
-            User.facebookID=getPreferent(context).getString("facebookID","");
-        }
-    }
     private void hideItem()
     {
         NavigationView  navigationView = (NavigationView) findViewById(R.id.nav_view);
