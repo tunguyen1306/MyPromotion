@@ -10,6 +10,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -30,6 +34,10 @@ public class LoginFragment extends Fragment{
     View view;
     private CallbackManager callbackManager;
     LoginButton loginButton;
+    Button btnLogin;
+    EditText editUserNameLogin;
+    EditText editUserNamePass;
+    String edUserName,edPassWord;
     //Login Facebook
     private FacebookCallback<LoginResult> loginResultFacebookCallback=new FacebookCallback<LoginResult>() {
         @Override
@@ -97,6 +105,17 @@ public class LoginFragment extends Fragment{
         callbackManager=CallbackManager.Factory.create();
         loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions("email");
+        btnLogin=(Button)view.findViewById(R.id.btnLogin);
+        editUserNameLogin=(EditText)view.findViewById(R.id.editUserNameLogin) ;
+        editUserNamePass=(EditText)view.findViewById(R.id.editPassWordLogin) ;
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               edUserName=editUserNameLogin.getText().toString();
+                edPassWord=editUserNamePass.getText().toString();
+        }
+        });
+
         return view;
     }
     @Override
@@ -111,6 +130,12 @@ public class LoginFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode,data);
+    }
+    ResClient resClient=new ResClient();
+    public  void GetLogin()
+    {
+
+
     }
 
 }
