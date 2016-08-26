@@ -3,35 +3,39 @@ package com.example.user.navigationdrawer;
 /**
  * Created by Administrator on 8/22/2016.
  */
-import android.app.Service;
 
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
 
 import retrofit.client.OkClient;
-import retrofit.converter.GsonConverter;
+
 
 public class ResClient {
-    public static final String UrlApi="http://localhost:2208/api/promotion/";
+    //You need to change the IP if you testing environment is not local machine
+    //or you may have different URL than we have here
+    // private static final String URL = "http://instinctcoder.com/wp-content/uploads/2015/08/";
+    private static final String URL = "http://api.vangia.net/api";
     private retrofit.RestAdapter restAdapter;
-    private Service service;
-    public ResClient(){
+    private ServicePromotion serviceman;
+
+    public ResClient()
+    {
+
         final OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setReadTimeout(30, TimeUnit.SECONDS);
         okHttpClient.setConnectTimeout(30, TimeUnit.SECONDS);
 
         restAdapter = new retrofit.RestAdapter.Builder()
-                .setEndpoint(UrlApi)
+                .setEndpoint(URL)
                 .setLogLevel(retrofit.RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(okHttpClient))
                 .build();
-
-        service = restAdapter.create(Service.class);
+        serviceman =restAdapter.create(ServicePromotion.class);
     }
-    public  Service getService()
+
+    public  ServicePromotion getService()
     {
-        return service;
+        return serviceman;
     }
-
 }

@@ -1,7 +1,6 @@
 package com.example.user.navigationdrawer;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +21,17 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.internal.GetServiceRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.Provider;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -61,8 +69,6 @@ public class LoginFragment extends Fragment{
                                 User.gender=gender;
                                 User.facebookID=id;
                                 User.savePreferen(getActivity());
-//                                Intent Login=new Intent(getActivity(),MainActivity.class);
-//                                startActivity(Login);
                                 FragmentManager fragmentManager = getFragmentManager();
 
                  fragmentManager.beginTransaction().replace(R.id.content_frame, new Register())
@@ -113,7 +119,10 @@ public class LoginFragment extends Fragment{
             public void onClick(View v) {
                edUserName=editUserNameLogin.getText().toString();
                 edPassWord=editUserNamePass.getText().toString();
-        }
+                MTGetLogin();
+
+
+            }
         });
 
         return view;
@@ -131,11 +140,24 @@ public class LoginFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode,data);
     }
-    ResClient resClient=new ResClient();
-    public  void GetLogin()
-    {
+    public void MTGetLogin(){
+        ResClient resClient=new ResClient();
+        resClient.getService().GetLogin(edUserName, edPassWord, new Callback<List<UserDto>>() {
+            @Override
+            public void success(List<UserDto> strings, Response response) {
+                for (int i=0;i <strings.size();i++)
+                {
 
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
 
     }
+
 
 }

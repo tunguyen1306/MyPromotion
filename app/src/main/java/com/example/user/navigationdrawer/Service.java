@@ -9,9 +9,9 @@ import retrofit.http.Query;
 /**
  * Created by TuNguyen on 8/22/2016.
  */
-public interface Service {
+interface ServicePromotion {
     @GET("/GetLogin/")
-   public void GetLogin(@Query("userName") String userName,
-                  @Query("passWord") String passWord,
-                  Callback<List<String>> items);
+    void GetLogin(@Query("userName")String userName,
+                   @Query("passWord")  String passWord,
+                   Callback<List<UserDto>> items);
 }
