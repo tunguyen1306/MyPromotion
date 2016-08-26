@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -46,6 +47,7 @@ public class LoginFragment extends Fragment{
     EditText editUserNameLogin;
     EditText editUserNamePass;
     String edUserName,edPassWord;
+    TextView txt_login_success;
     //Login Facebook
     private FacebookCallback<LoginResult> loginResultFacebookCallback=new FacebookCallback<LoginResult>() {
         @Override
@@ -121,7 +123,6 @@ public class LoginFragment extends Fragment{
                 edPassWord=editUserNamePass.getText().toString();
                 MTGetLogin();
 
-
             }
         });
 
@@ -142,11 +143,13 @@ public class LoginFragment extends Fragment{
     }
     public void MTGetLogin(){
         ResClient resClient=new ResClient();
+        txt_login_success=(TextView)view.findViewById(R.id.login_success);
         resClient.getService().GetLogin(edUserName, edPassWord, new Callback<List<UserDto>>() {
             @Override
             public void success(List<UserDto> strings, Response response) {
                 for (int i=0;i <strings.size();i++)
                 {
+                    txt_login_success.setText(strings.get(i).getEmail());
 
                 }
             }
