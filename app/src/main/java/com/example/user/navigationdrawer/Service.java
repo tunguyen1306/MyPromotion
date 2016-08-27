@@ -1,9 +1,13 @@
 package com.example.user.navigationdrawer;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit.Callback;
+import retrofit.http.Body;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
@@ -11,7 +15,12 @@ import retrofit.http.Query;
  */
 interface ServicePromotion {
     @GET("/GetLogin/")
-    void GetLogin(@Query("userName")String userName,
-                   @Query("passWord")  String passWord,
-                   Callback<List<UserDto>> items);
+    void GetLogin(@Query("email")String email,
+                  @Query("passWord")  String passWord,
+                  Callback<List<UserDto>> items);
+
+    @POST("/Register")
+    void GetRegister(
+            @Body UserRegister item,
+            Callback<List<UserDto>> items);
 }

@@ -52,13 +52,13 @@ public class Login extends AppCompatActivity {
                             try
                             {
                                 String id = object.getString("id");
-                                String   Username = object.getString("name");
+                                String   full_name = object.getString("name");
                                 String   Email = object.getString("email");
                                 String gender = object.getString("gender");
                                 String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
                                 User user=new User();
-                                User.Login=true;
-                                User.FullName=Username;
+                                User.Login=1;
+                                User.full_name=full_name;
                                 User.UrlImage = imgUrl;
 
                                 savePreference(getApplicationContext());
@@ -122,13 +122,13 @@ public class Login extends AppCompatActivity {
                                 try
                                 {
                                     String id = object.getString("id");
-                                    String   Username = object.getString("name");
+                                    String   full_name = object.getString("name");
                                     String   Email = object.getString("email");
                                     String gender = object.getString("gender");
                                     String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
                                     User user=new User();
-                                    user.Login=true;
-                                    User.FullName=Username;
+                                    user.Login=1;
+                                    User.full_name=full_name;
                                     user.UrlImage = imgUrl;
                                     savePreference(getApplicationContext());
                                     finish();
@@ -176,14 +176,14 @@ public class Login extends AppCompatActivity {
     private void  savePreference(Context context)
     {
         SharedPreferences.Editor edit=getPreferent(context).edit();
-        if (User.Login)
+        if (User.Login==1)
         {
-            edit.putBoolean("Login",User.Login);
-            edit.putString("DisplayName",User.FullName);
+            edit.putInt("Login",User.Login);
+            edit.putString("full_name",User.full_name);
             edit.putString("UrlImage",User.UrlImage);
         }else  {
-            edit.putBoolean("Login",false);
-            edit.putString("DisplayName","");
+            edit.putInt("Login",0);
+            edit.putString("full_name","");
             edit.putString("UrlImage","");
         }
         edit.clear();
@@ -192,7 +192,7 @@ public class Login extends AppCompatActivity {
     private  void RestorReference(Context context)
     {
 
-        User.FullName=getPreferent(context).getString("DisplayName","");
+        User.full_name=getPreferent(context).getString("full_name","");
         User.UrlImage=getPreferent(context).getString("UrlImage","");
     }
 

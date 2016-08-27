@@ -1,9 +1,7 @@
 package com.example.user.navigationdrawer;
 
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,15 +21,21 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     ImageView img;
+    TextView txtshow;
+    TextView txtshowEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,13 +57,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header=navigationView.getHeaderView(0);
-        if (User.Login){
-        TextView txtshow=(TextView)header.findViewById(R.id.txtShowName);
-        txtshow.setText(User.FullName);
-            TextView txtshowEmail=(TextView)header.findViewById(R.id.txtShowEmail);
+        if (User.Login==1){
+            txtshow=(TextView)header.findViewById(R.id.txtShowName);
+            txtshow.setText(User.full_name);
+            txtshowEmail=(TextView)header.findViewById(R.id.txtShowEmail);
             txtshowEmail.setText(User.email);
-        img=(ImageView)header.findViewById(R.id.imageView);
-        Picasso.with(getApplicationContext()).load(User.UrlImage).into(img);
+            img=(ImageView)header.findViewById(R.id.imageView);
+            Picasso.with(getApplicationContext()).load(User.UrlImage).into(img);
             hideItem();
         }
 
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         User.RestorReferen(getApplicationContext());
-
     }
 
     @Override
@@ -134,7 +137,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new Register()).commit();
                 break;
             case R.id.nav_logout:
-                User.Login=false;
+                User.Login=0;
                 User.savePreferen(getApplicationContext());
                 Toast.makeText(getApplicationContext(),"Bạn đã đăng xuất", Toast.LENGTH_SHORT).show();
                 FacebookSdk.sdkInitialize(MainActivity.this);
