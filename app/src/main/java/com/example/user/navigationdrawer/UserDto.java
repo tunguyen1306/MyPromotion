@@ -83,18 +83,4 @@ public class UserDto {
     public String url_img ;
 
 
-    public class userRegister
-    {
-
-        public String email_user_promotion;
-        public String phone_user_promotion;
-        public String first_name_user_promotion;
-        public String last_name_user_promotion;
-        public int type_role_user_promotion;
-        public int status_user_promotion;
-        public String pass_user_promotion;
-        public String img_user_promotion;
-        public String full_name_user_promotion; public int IDout;
-    }
-
 }

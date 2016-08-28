@@ -1,5 +1,15 @@
 package com.example.user.navigationdrawer;
 
+import android.app.FragmentManager;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * Created by TuNguyen on 08/27/2016.
  */
@@ -93,5 +103,34 @@ public class UserRegister {
     public String pass_user_promotion;
     public String img_user_promotion;
     public String full_name_user_promotion;
-    public int IDout;
+    public  int IDout;
+    public void EventRegister(String Email,String Phone,String firstName,String lastName,int type_role,int status,String passWord,String imgUrl,String fullName)
+    {
+        ResClient resClient=new ResClient();
+        UserRegister userRegister=new UserRegister();
+        userRegister.email_user_promotion=Email;
+        userRegister.phone_user_promotion=Phone;
+        userRegister.first_name_user_promotion=firstName;
+        userRegister.last_name_user_promotion=lastName;
+        userRegister.type_role_user_promotion=type_role;
+        userRegister.status_user_promotion=status;
+        userRegister.pass_user_promotion=passWord;
+        userRegister.img_user_promotion=imgUrl;
+        userRegister.full_name_user_promotion=fullName;
+        resClient.getService().GetRegister(userRegister
+                , new Callback<List<UserDto>>() {
+                    @Override
+                    public void success(List<UserDto> userDtos, Response response) {
+                        IDout=userDtos.get(0).IDout;
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("myLogs", "-------ERROR-------");
+                        Log.d("myLogs", Log.getStackTraceString(error));
+                    }
+                });
+    }
+
 }

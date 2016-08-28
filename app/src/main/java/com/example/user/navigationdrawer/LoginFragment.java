@@ -66,6 +66,8 @@ public class LoginFragment extends Fragment {
                                 String full_name = object.getString("name");
                                 String Email = object.getString("email");
                                 String gender = object.getString("gender");
+//                                String first_name = object.getString("first_name");
+//                                String last_name = object.getString("last_name");
                                 String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
                                 User.Login = 1;
                                 User.full_name = full_name;
@@ -74,14 +76,15 @@ public class LoginFragment extends Fragment {
                                 User.gender = gender;
                                 User.facebookID = id;
                                 User.savePreferen(getActivity());
-                                Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.content_frame, new Register())
-                                        .commit();
-//                                Intent login= new Intent(getActivity(),MainActivity.class);
-//                                  startActivity(login);
 
-
+                               // Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+//                                FragmentManager fragmentManager = getFragmentManager();
+//                                fragmentManager.beginTransaction().replace(R.id.content_frame, new Register())
+//                                        .commit();
+                                UserRegister userRegister =new UserRegister();
+                                userRegister.EventRegister(Email,"","","",2,1,"",imgUrl,full_name);
+                                Intent login= new Intent(getActivity(),MainActivity.class);
+                                  startActivity(login);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -116,6 +119,7 @@ public class LoginFragment extends Fragment {
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("user_friends");
         loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions("public_profile");
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         editEmailLogin = (EditText) view.findViewById(R.id.editEmailLogin);
         editUserNamePass = (EditText) view.findViewById(R.id.editPassWordLogin);
@@ -152,6 +156,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void success(List<UserDto> strings, Response response) {
                 if (strings.get(0).IDout == 1) {
+                    User.Login = 2;
                     userDto.id = strings.get(0).id;
                     userDto.email = strings.get(0).email;
                     userDto.IDout = strings.get(0).IDout;

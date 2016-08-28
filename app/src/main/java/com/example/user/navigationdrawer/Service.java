@@ -23,4 +23,7 @@ interface ServicePromotion {
     void GetRegister(
             @Body UserRegister item,
             Callback<List<UserDto>> items);
+    @GET("/GetAdvert/")
+    void GetAdvert(@Query("pageNum")int pageNum,
+                  Callback<List<ListingDto>> items);
 }

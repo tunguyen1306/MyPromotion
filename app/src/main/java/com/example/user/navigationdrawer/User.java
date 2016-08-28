@@ -45,7 +45,7 @@ public class User {
                 }else  {
 
                         User.full_name=getPreferent(context).getString("full_name","");
-                        User.Login=getPreferent(context).getInt("Login",0);
+                        //User.Login=getPreferent(context).getInt("Login",0);
                         User.UrlImage=getPreferent(context).getString("UrlImage","");
                         User.email=getPreferent(context).getString("Email","");
                         User.gender=getPreferent(context).getString("Gender","");

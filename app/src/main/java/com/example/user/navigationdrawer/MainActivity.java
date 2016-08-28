@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
@@ -135,6 +136,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_register:
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new Register()).commit();
+                break;
+            case R.id.advert_save:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new advert_save()).commit();
                 break;
             case R.id.nav_logout:
                 User.Login=0;
