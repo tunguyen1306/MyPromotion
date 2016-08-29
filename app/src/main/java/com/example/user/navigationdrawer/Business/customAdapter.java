@@ -47,22 +47,28 @@ public class customAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null){
+        if(convertView == null)
+        {
             listViewHolder = new ViewHolder();
             convertView=layoutInflater.inflate(R.layout.advert_save,parent,false);
             listViewHolder.txt_tile=(TextView)convertView.findViewById(R.id.txtAdvert_name);
+            listViewHolder.txtAdvertSaveAddress=(TextView)convertView.findViewById(R.id.txtAdvertSaveAddress);
+            listViewHolder.txtAdvertSavePrice=(TextView)convertView.findViewById(R.id.txtAdvertSavePrice);
             listViewHolder.img_advert_save=(ImageView) convertView.findViewById(R.id.img_advert_save);
             convertView.setTag(listViewHolder);
-        }else{
+        }
+        else
+        {
             listViewHolder = (ViewHolder)convertView.getTag();
         }
         listViewHolder.txt_tile.setText(listingDtos.get(position).AdvertName);
+        listViewHolder.txtAdvertSaveAddress.setText(listingDtos.get(position).AdvertStreet);
+        listViewHolder.txtAdvertSavePrice.setText(listingDtos.get(position).AdvertPrice);
         Picasso.with(_Context).load(listingDtos.get(position).AdvertImg).into(listViewHolder.img_advert_save);
-
         return convertView;
     }
     public  class  ViewHolder{
-        TextView txt_tile;
+        TextView txt_tile,txtAdvertSaveAddress,txtAdvertSavePrice;
         ImageView img_advert_save;
     }
 }

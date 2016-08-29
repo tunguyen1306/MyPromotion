@@ -1,18 +1,14 @@
 package com.example.user.navigationdrawer;
 
 import android.app.*;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -27,14 +23,7 @@ import com.google.android.gms.common.internal.GetServiceRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.Provider;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -49,8 +38,7 @@ public class LoginFragment extends Fragment {
     private CallbackManager callbackManager;
     LoginButton loginButton;
     Button btnLogin;
-    EditText editEmailLogin;
-    EditText editUserNamePass;
+    EditText editEmailLogin,editUserNamePass;
     String edEmail, edPassWord;
 
     //Login Facebook
@@ -131,10 +119,8 @@ public class LoginFragment extends Fragment {
                 MTGetLogin();
             }
         });
-
         return view;
     }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -170,14 +156,10 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(), "Tài khoản đã bị khóa", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(getActivity(), "Đăng nhập có vấn đề vui lòng thử lại", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
 }

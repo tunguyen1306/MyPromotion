@@ -32,13 +32,7 @@ import retrofit.client.Response;
 public class Register extends Fragment {
     private static String PREF_NAME = "pref";
     Button btnRegister;
-    EditText editfull_name;
-    EditText editPass;
-    EditText editEmail;
-    EditText editPhone;
-    EditText editfirst;
-    EditText editLast;
-    EditText editPassCon;
+    EditText editfull_name,editPass,editEmail,editPhone,editfirst,editLast,editPassCon;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

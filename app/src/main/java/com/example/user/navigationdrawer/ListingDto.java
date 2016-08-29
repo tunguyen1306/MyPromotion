@@ -118,19 +118,29 @@ public class ListingDto {
         AdvertImg = advertImg;
     }
 
-    public int AdvertId ;
+    public String getAdvertPrice() {
+        return AdvertPrice;
+    }
+    public void setAdvertPrice(String advertPrice) {
+        AdvertPrice = advertPrice;
+    }
+
+    public int AdvertId;
     public String AdvertName;
-    public String AdvertDescription ;
-    public String AdvertCreatedDate ;
-    public String AdvertExpiresDate ;
-    public String AdvertModifiDate ;
-    public String AdvertPostedDate ;
-    public String AdvertStreet ;
-    public String AdvertCity ;
-    public String AdvertDistrict ;
-    public String AdvertWard ;
-    public String CategoryName ;
-    public String AdvertImg ;
+    public String AdvertDescription;
+    public String AdvertCreatedDate;
+    public String AdvertExpiresDate;
+    public String AdvertModifiDate;
+    public String AdvertPostedDate;
+    public String AdvertStreet;
+    public String AdvertCity;
+    public String AdvertDistrict;
+    public String AdvertWard;
+    public String CategoryName;
+    public String AdvertImg;
+
+
+    public String AdvertPrice;
 //    public void GetAdvert(int pageNum)
 //    {
 //        ResClient resClient=new ResClient();
