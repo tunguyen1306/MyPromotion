@@ -8,11 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import com.example.user.navigationdrawer.Business.customAdapter;
 
 
 /**
@@ -23,19 +25,18 @@ public class advert_save extends Fragment {
     View view;
     TextView txtAdvert_name;
     CardView cardView;
+    ListView list;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.advert_save, container, false);
+        view = inflater.inflate(R.layout.advert_save_listview, container, false);
         txtAdvert_name=(TextView)view.findViewById(R.id.txtAdvert_name);
         cardView=(CardView)view.findViewById(R.id.card_view);
+        list=(ListView)view.findViewById(R.id.lvAdvertSave);
         GetAdvert(1);
-
-
         return view;
     }
-
     public void GetAdvert(int pageNum)
     {
         ResClient resClient=new ResClient();
@@ -43,11 +44,7 @@ public class advert_save extends Fragment {
                 , new Callback<List<ListingDto>>() {
                     @Override
                     public void success(List<ListingDto> userDtos, Response response) {
-                        for (int i=0;i<userDtos.size();i++){
-
-                            txtAdvert_name.setText(userDtos.get(i).AdvertName);
-                        }
-
+                        list.setAdapter(new customAdapter(getActivity(),userDtos));
                     }
 
                     @Override
@@ -57,4 +54,5 @@ public class advert_save extends Fragment {
                     }
                 });
     }
+
 }

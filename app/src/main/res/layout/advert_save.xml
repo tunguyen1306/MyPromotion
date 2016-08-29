@@ -20,7 +20,7 @@
             android:padding="2dp">
 
             <ImageView
-                android:id="@+id/img_resultsearch"
+                android:id="@+id/img_advert_save"
                 android:layout_width="125dp"
                 android:layout_height="95dp"
                 android:layout_gravity="left"
