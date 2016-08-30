@@ -21,18 +21,27 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
-    <!-- our tablayout to display tabs  -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@color/colorPrimary" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/id_tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        android:layout_height="45dp"
 
-    <!-- View pager to swipe views -->
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorPrimary"
+
+        app:theme="@style/Base.Widget.Design.TabLayout"
+        app:tabGravity="fill"  />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/id_pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 </android.support.v4.widget.DrawerLayout>

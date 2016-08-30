@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.navigationdrawer.Category.tabClothes;
+import com.example.user.navigationdrawer.Category.tabHome;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
@@ -62,26 +64,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Initializing the tablayout
+
         tabLayout = (TabLayout) findViewById(R.id.id_tabLayout);
-
-        //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.id_pager);
-
-        //Creating our pager adapter
-        PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-
-        //Adding adapter to pager
-        viewPager.setAdapter(adapter);
-
-        //Adding onTabSelectedListener to swipe views
-        tabLayout.setOnTabSelectedListener(this);
+        setupTabLayout(tabLayout);
+        setupViewPager(viewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+        //in onCreate
+        tabLayout = (TabLayout) findViewById(R.id.id_tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.id_pager);
+        setupTabLayout(tabLayout);
+        setupViewPager(viewPager);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -222,4 +215,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+    //method setupTabLayout
+
+    private void setupTabLayout(TabLayout tabLayout) {
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
+    }
+
+    // method setupViewPager
+
+    private void setupViewPager(ViewPager viewPager) {
+        PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
+        adapter.addFrag(new tabHome(), "Register");
+        adapter.addFrag(new tabClothes(), "Login");
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2); //num fragment load when startActivity
+    }
+
 }
