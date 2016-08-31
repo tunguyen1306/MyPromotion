@@ -64,11 +64,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //setUpActionBar();
 
         tabLayout = (TabLayout) findViewById(R.id.id_tabLayout);
         viewPager = (ViewPager) findViewById(R.id.id_pager);
-        setupTabLayout(tabLayout);
         setupViewPager(viewPager);
+        setupTabLayout(tabLayout);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +86,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //in onCreate
         tabLayout = (TabLayout) findViewById(R.id.id_tabLayout);
         viewPager = (ViewPager) findViewById(R.id.id_pager);
-        setupTabLayout(tabLayout);
         setupViewPager(viewPager);
+        setupTabLayout(tabLayout);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
