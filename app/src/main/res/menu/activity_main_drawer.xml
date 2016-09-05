@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<group android:id="@+id/gr_first" android:checkableBehavior="single">
-    <item android:id="@+id/nav_login" android:icon="@drawable/ic_menu_slideshow" android:title="Đăng nhập"/>
-    <item android:id="@+id/nav_register" android:icon="@drawable/ic_menu_slideshow" android:title="Đăng ký"/>
-</group>
-<item android:title="Communicate">
-    <group android:id="@+id/gr_second" android:checkableBehavior="single">
-        <item    android:id="@+id/advert_save" android:icon="@drawable/ic_menu_slideshow" android:title="Sản phẩm đã lưu"/>
-        <item android:id="@+id/nav_post" android:icon="@drawable/ic_menu_slideshow" android:title="Hộp thư"/>
-        <item android:id="@+id/nav_share_post" android:icon="@drawable/ic_menu_slideshow" android:title="Thông tin tài khoản"/>
-        <item android:id="@+id/nav_addfiend" android:icon="@drawable/ic_menu_slideshow" android:title="Thông tin ứng dụng"/>
+    <group
+        android:id="@+id/gr_first"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/icon_login"
+            android:title="Đăng nhập" />
+        <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/icon_sign"
+            android:title="Đăng ký" />
+
     </group>
-</item>
-<item android:id="@+id/nav_logout" android:icon="@drawable/ic_menu_slideshow" android:title="Đăng xuất"/>
+
+    <item android:title="Communicate">
+        <group
+            android:id="@+id/gr_second"
+            android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_manager_post"
+                android:icon="@drawable/icon_manager"
+                android:title="Quản lý bài viết" />
+            <item
+                android:id="@+id/nav_post"
+                android:icon="@drawable/icon_post"
+                android:title="Đăng bài viết" />
+            <item
+                android:id="@+id/nav_share_post"
+                android:icon="@drawable/icon_like"
+                android:title="Chia sẽ bài viết"/>
+            <item
+                android:id="@+id/nav_addfiend"
+                android:icon="@drawable/icon_addfriend_1"
+                android:title="Giới thiệu bạn" />
+        </group>
+    </item>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/icon_logout"
+        android:title="Đăng xuất"/>
 </menu>
