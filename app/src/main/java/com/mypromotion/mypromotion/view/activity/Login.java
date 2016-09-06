@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
+import com.mypromotion.mypromotion.model.Preference;
+import com.mypromotion.mypromotion.model.UserDto;
 
 public class Login extends ActionBarActivity {
 
@@ -30,14 +32,9 @@ public class Login extends ActionBarActivity {
     private TextInputLayout  inputLayoutEmail, inputLayoutPassword;
     private Button btnSignUp,btn_showpass;
 
-    //string
-    private static String PREF_NAME = "pref";
-    String UserEmail,UserName,UserUrl;
-    //int
 
 
     //boolean
-    boolean login;
     boolean show_pass;
 
 
@@ -45,41 +42,11 @@ public class Login extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-        inputEmail = (EditText) findViewById(R.id.input_email);
-        inputPassword = (EditText) findViewById(R.id.input_password);
-        btnSignUp = (Button) findViewById(R.id.btn_signup);
-        btn_showpass = (Button) findViewById(R.id.btn_showpass);
-
-        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
-        inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
-
         //clear focus
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                submitForm();
-            }
-        });
-
-        btn_showpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (show_pass == false) {
-                    setShow_pass();
-                } else {
-                    setHide_pass();
-                }
-            }
-        });
     }
 
     private void submitForm() {
@@ -91,11 +58,11 @@ public class Login extends ActionBarActivity {
         if (!validatePassword()) {
             return;
         }
-        UserEmail=inputEmail.getText().toString();
-        UserName=getResources().getString(R.string.temp_username);
-        UserUrl=getResources().getString(R.string.temp_userurl);
-        login=true;
-        savePreference(getApplicationContext());
+        UserDto.UserEmail=inputEmail.getText().toString();
+        UserDto.UserName=getResources().getString(R.string.temp_username);
+        UserDto.UserUrl=getResources().getString(R.string.temp_userurl);
+        UserDto.login=true;
+        Preference.savePreference(getApplicationContext());
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -197,21 +164,7 @@ public class Login extends ActionBarActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-    private static SharedPreferences getPref(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);}
 
-    private void savePreference(Context context) {
-        //SharedPreferences pre = getSharedPreferences(Prefname,MODE_PRIVATE);
-        SharedPreferences.Editor edit =getPref(context).edit();
-        edit.putBoolean("login",login);
-        edit.putString("UserUrl", UserUrl);
-        edit.putString("UserName",UserName);
-        edit.putString("UserEmail",UserEmail);
-
-        edit.clear();
-        edit.commit();
-
-    }
 
     public void setShow_pass() {
 

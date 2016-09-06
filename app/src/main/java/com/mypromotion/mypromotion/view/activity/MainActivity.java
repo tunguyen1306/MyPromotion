@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.mypromotion.mypromotion.R;
+import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.view.fragment.Fragment1;
 import com.mypromotion.mypromotion.view.fragment.Fragment2;
 import com.mypromotion.mypromotion.view.fragment.Home;
@@ -72,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         tv_header_name=(TextView)header.findViewById(R.id.name);
         tv_header_email=(TextView)header.findViewById(R.id.email);
 
-        restorePreference(getApplicationContext());
+        Preference.restorePreference(getApplicationContext());
         setupViewPager(viewPager);
         setupTabLayout(tabLayout);
         setupActionBar();
@@ -91,14 +92,14 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     @Override
     public void onPause() {
         super.onPause();
-        savePreference(getApplicationContext());
+        Preference.savePreference(getApplicationContext());
         hideItem();
 
     }
     @Override
     public void onResume() {
         super.onResume();
-        restorePreference(getApplicationContext());
+       Preference.restorePreference(getApplicationContext());
         hideItem();
     }
     private void setupTabLayout(TabLayout tabLayout) {
@@ -152,7 +153,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 login=false;
-                savePreference(getApplicationContext());
+                Preference.savePreference(getApplicationContext());
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.msg_logout), Toast.LENGTH_SHORT).show();
                 FacebookSdk.sdkInitialize(MainActivity.this);
                 LoginManager.getInstance().logOut();
@@ -215,39 +216,13 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             }
         }, 2000);
     }
-    private void savePreference(Context context) {
 
-        //SharedPreferences pre = getSharedPreferences(Prefname,MODE_PRIVATE);
-        SharedPreferences.Editor edit = getPref(context).edit();
-        if(login) {
-            edit.putBoolean("login", login);
-            edit.putString("UserUrl", UserUrl);
-            edit.putString("UserName", UserName);
-            edit.putString("UserEmail", UserEmail);
-
-        }else{
-            edit.putBoolean("login", false);
-            edit.putString("UserUrl",null);
-            edit.putString("UserName", null);
-            edit.putString("UserEmail", null);
-
-        }
-        edit.clear();
-        edit.commit();
-    }
 
     private static SharedPreferences getPref(Context context) {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void restorePreference(Context context) {
-        // SharedPreferences pref = getActivity().getSharedPreferences(Prefname,MODE_PRIVATE);
-        login = getPref(context).getBoolean("login", false);
-        UserUrl=getPref(context).getString("UserUrl","");
-        UserName=getPref(context).getString("UserName","");
-        UserEmail=getPref(context).getString("UserEmail", "");
 
-    }
     private void hideItem(){
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
