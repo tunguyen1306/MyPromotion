@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.AppCompat.Responsive" parent="Theme.AppCompat.Light">
+
+        <!-- Action Mode styles -->
+        <item name="actionModeStyle">@style/Custom.Widget.ActionMode</item>
+        <item name="actionModeBackground">@color/colorActionMode</item>
+        <!-- Toolbar styles -->
+        <item name="toolbarStyle">@style/Custom.Widget.Toolbar</item>
+    </style>
+</resources>
