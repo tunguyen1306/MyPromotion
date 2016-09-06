@@ -68,10 +68,9 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        header=navigationView.inflateHeaderView(R.layout.drawer_header);//add header
-        img_header_user=(ImageView)header.findViewById(R.id.drawer_head_img);
-        tv_header_name=(TextView)header.findViewById(R.id.name);
-        tv_header_email=(TextView)header.findViewById(R.id.email);
+        //Add Header
+        header=navigationView.inflateHeaderView(R.layout.drawer_header);
+
 
         Preference.restorePreference(getApplicationContext());
         setupViewPager(viewPager);
@@ -105,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     private void setupTabLayout(TabLayout tabLayout) {
 //        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.greenToolBarBg1));
     }
 
     private void setupViewPager(ViewPager viewPager) {

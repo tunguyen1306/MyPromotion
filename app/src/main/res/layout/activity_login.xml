@@ -2,16 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/com_facebook_blue"
-
-
+    android:background="@color/greenToolBarBg"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/greenToolBarBg1"
         android:theme="@style/Base.AppCompat.Responsive" />
 
     <ScrollView
@@ -34,7 +32,7 @@
                     android:layout_marginTop="22dp"
                     android:gravity="center_horizontal"
                     android:text="Đăng Nhập"
-                    android:textColor="#fff"
+                    android:textColor="@color/greenToolBarBg1"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 
@@ -64,7 +62,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/ic_show"
-                                android:drawableTint="#FF4081"
+                                android:drawableTint="@color/com_facebook_share_button_text_color"
                                 android:singleLine="true"
                                 android:hint="Email"
                                 android:id="@+id/editEmailLogin"
@@ -98,7 +96,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:background="@color/com_facebook_blue"
+                            android:background="@color/greenToolBarBg1"
                             android:text="Đăng nhập"
                             android:textAllCaps="false"
                             android:textColor="#fff"

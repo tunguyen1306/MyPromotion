@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#990066</color>
+    <color name="colorPrimary">#011290</color>
     <color name="colorPrimaryDark">#ff7d0b5e</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
@@ -10,6 +10,8 @@
     <color name="_404141">#404141</color>
     <color name="icon">#ff7d7b7b</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="colorToolBarBg">#2baf2b</color>
+    <color name="greenToolBarBg">#9dcaa1</color>
+    <color name="greenToolBarBg1">#029f80</color>
 
 </resources>

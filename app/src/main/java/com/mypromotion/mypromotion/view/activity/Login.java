@@ -1,16 +1,11 @@
 package com.mypromotion.mypromotion.view.activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.design.widget.TextInputLayout;
+
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,129 +14,52 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
+import com.mypromotion.mypromotion.model.ResClient;
 import com.mypromotion.mypromotion.model.UserDto;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 
 public class Login extends ActionBarActivity {
 
+    EditText editEmail,editPass;
+    Button btnLogin;
     //control
     private Toolbar toolbar;
-    private EditText inputEmail, inputPassword;
-    private TextInputLayout  inputLayoutEmail, inputLayoutPassword;
-    private Button btnSignUp,btn_showpass;
-
-
-
     //boolean
-    boolean show_pass;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        editEmail=(EditText)findViewById(R.id.editEmailLogin);
+        editPass=(EditText)findViewById(R.id.editPassWordLogin);
+        btnLogin=(Button)findViewById(R.id.btnLogin);
         //clear focus
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
-
     private void submitForm() {
+      ResClient resClient=new ResClient();
+        UserDto userRegister=new UserDto();
 
-        if (!validateEmail()) {
-            return;
-        }
-
-        if (!validatePassword()) {
-            return;
-        }
-        UserDto.UserEmail=inputEmail.getText().toString();
-        UserDto.UserName=getResources().getString(R.string.temp_username);
-        UserDto.UserUrl=getResources().getString(R.string.temp_userurl);
-        UserDto.login=true;
         Preference.savePreference(getApplicationContext());
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
         finish();
     }
-
-    private boolean validateEmail() {
-        String email = inputEmail.getText().toString().trim();
-
-        if (email.isEmpty()  ) {
-            inputLayoutEmail.setError(getString(R.string.msg_empty_email));
-            requestFocus(inputEmail);
-            return false;
-        } else if(!isValidEmail(email)){
-            inputLayoutEmail.setError(getString(R.string.msg_valid_email));
-            requestFocus(inputEmail);
-            return false;
-        }else {
-            inputLayoutEmail.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validatePassword() {
-        if (inputPassword.getText().toString().trim().isEmpty() ) {
-            inputLayoutPassword.setError(getString(R.string.msg_empty_password));
-            requestFocus(inputPassword);
-            return false;
-        }else if(inputPassword.getText().toString().length()<6){
-            inputLayoutPassword.setError(getResources().getString(R.string.msg_minimum_password));
-            requestFocus(inputPassword);
-            return false;
-        }else {
-            inputLayoutPassword.setErrorEnabled(false);
-        }
-        //show icon show pass
-        if(!inputPassword.getText().toString().trim().isEmpty()){
-            btn_showpass.setVisibility(View.VISIBLE);
-        }else{
-            btn_showpass.setVisibility(View.GONE);
-        }
-        return true;
-    }
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.input_email:
-                    validateEmail();
-                    break;
-                case R.id.input_password:
-                    validatePassword();
-                    break;
-            }
-        }
-    }
-
     public void setUpActionBar() {
         setSupportActionBar(toolbar);
         ActionBar mActionBar = getSupportActionBar();
@@ -164,19 +82,4 @@ public class Login extends ActionBarActivity {
         mActionBar.setDisplayShowCustomEnabled(true);
     }
 
-
-
-    public void setShow_pass() {
-
-        inputPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        btn_showpass.setBackgroundResource(R.drawable.ic_hide);
-        show_pass = true;
-
-    }
-
-    public void setHide_pass() {
-        inputPassword.setInputType(129); //129 is the input type set when setting android:inputType="textPassword"
-        btn_showpass.setBackgroundResource(R.drawable.ic_show);
-        show_pass = false;
-    }
 }
