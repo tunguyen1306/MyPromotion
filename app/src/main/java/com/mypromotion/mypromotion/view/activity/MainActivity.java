@@ -29,6 +29,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
+import com.mypromotion.mypromotion.model.UserDto;
 import com.mypromotion.mypromotion.view.fragment.Fragment1;
 import com.mypromotion.mypromotion.view.fragment.Fragment2;
 import com.mypromotion.mypromotion.view.fragment.Home;
@@ -40,7 +41,6 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //control
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -48,16 +48,14 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     NavigationView navigationView;
 
     View header;
-    TextView tv_header_name,tv_header_email;
-    ImageView img_header_user;
+    TextView tvHeaderName,tvHeaderEmail;
+    ImageView imgHeaderUser;
 
-    //boolean
-    boolean login=false;
+
     boolean doubleBackToExitPressedOnce = false;
 
     //string
     private static String PREF_NAME = "pref";
-    String UserUrl,UserName,UserEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +68,8 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         //Add Header
         header=navigationView.inflateHeaderView(R.layout.drawer_header);
-
-
+        tvHeaderName=(TextView)header.findViewById(R.id.tvHeaderName);
+        tvHeaderEmail=(TextView)header.findViewById(R.id.tvHeaderEmail);
         Preference.restorePreference(getApplicationContext());
         setupViewPager(viewPager);
         setupTabLayout(tabLayout);
@@ -83,8 +81,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        // setup item left menu
-        hideItem();
+
     }//end Oncreate
 
 
@@ -94,12 +91,14 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         Preference.savePreference(getApplicationContext());
         hideItem();
 
+
     }
     @Override
     public void onResume() {
         super.onResume();
        Preference.restorePreference(getApplicationContext());
         hideItem();
+
     }
     private void setupTabLayout(TabLayout tabLayout) {
 //        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -151,7 +150,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             case R.id.nav_share_post:
                 break;
             case R.id.nav_logout:
-                login=false;
+                UserDto.login=false;
                 Preference.savePreference(getApplicationContext());
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.msg_logout), Toast.LENGTH_SHORT).show();
                 FacebookSdk.sdkInitialize(MainActivity.this);
@@ -225,13 +224,13 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     private void hideItem(){
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
-        if(login) {
+        if(UserDto.login) {
             navigationView.getMenu().setGroupVisible(R.id.gr_second, true);
             nav_Menu.findItem(R.id.nav_logout).setVisible(true);
             navigationView.getMenu().setGroupVisible(R.id.gr_first, false);
-            tv_header_name.setText(UserName);
-            tv_header_email.setText(UserEmail);
-            Picasso.with(getApplicationContext()).load(UserUrl).error(R.drawable.ic_image).into(img_header_user);
+            tvHeaderName.setText(UserDto.UserName);
+            tvHeaderEmail.setText(UserDto.UserEmail);
+           // Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.ic_image).into(imgHeaderUser);
             //click header
             header.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -244,9 +243,8 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             navigationView.getMenu().setGroupVisible(R.id.gr_second, false);
             nav_Menu.findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().setGroupVisible(R.id.gr_first, true);
-            tv_header_name.setText("");
-            tv_header_email.setText("");
-            img_header_user.setImageResource(R.drawable.ic_image);
+            tvHeaderName.setText("");
+            tvHeaderEmail.setText("");
             header.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

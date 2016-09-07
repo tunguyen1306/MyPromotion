@@ -9,7 +9,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/bg_top"
+        android:background="@color/greenToolBarBg1"
         android:gravity="center">
 
         <ImageView

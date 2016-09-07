@@ -32,7 +32,7 @@
                     android:layout_marginTop="22dp"
                     android:gravity="center_horizontal"
                     android:text="Đăng Nhập"
-                    android:textColor="@color/greenToolBarBg1"
+                    android:textColor="@color/white"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 

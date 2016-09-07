@@ -33,7 +33,7 @@
 
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/tvHeaderName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -46,7 +46,7 @@
                 />
 
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/tvHeaderEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"

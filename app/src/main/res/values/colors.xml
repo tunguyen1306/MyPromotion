@@ -11,7 +11,8 @@
     <color name="icon">#ff7d7b7b</color>
     <color name="white">#FFFFFF</color>
     <color name="colorToolBarBg">#2baf2b</color>
-    <color name="greenToolBarBg">#9dcaa1</color>
-    <color name="greenToolBarBg1">#029f80</color>
+    <color name="greenToolBarBg">#019421</color>
+    <color name="greenToolBarBg1">#2cb84b</color>
+    <color name="greenTabTextColor">#79d48f</color>
 
 </resources>

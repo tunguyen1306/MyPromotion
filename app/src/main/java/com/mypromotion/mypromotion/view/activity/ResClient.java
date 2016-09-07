@@ -1,5 +1,6 @@
-package com.mypromotion.mypromotion.model;
+package com.mypromotion.mypromotion.view.activity;
 
+import com.mypromotion.mypromotion.view.activity.ServiceConnect;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.util.concurrent.TimeUnit;
@@ -16,7 +17,7 @@ public class ResClient {
     // private static final String URL = "http://instinctcoder.com/wp-content/uploads/2015/08/";
     private static final String URL = "http://api.vangia.net/api";
     private retrofit.RestAdapter restAdapter;
-    private ServicePromotion serviceman;
+    private ServiceConnect serviceman;
 
     public ResClient()
     {
@@ -30,10 +31,10 @@ public class ResClient {
                 .setLogLevel(retrofit.RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(okHttpClient))
                 .build();
-        serviceman =restAdapter.create(ServicePromotion.class);
+        serviceman =restAdapter.create(ServiceConnect.class);
     }
 
-    public  ServicePromotion getService()
+    public  ServiceConnect GetService()
     {
         return serviceman;
     }
