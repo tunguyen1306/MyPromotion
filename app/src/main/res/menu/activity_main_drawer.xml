@@ -7,11 +7,11 @@
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_launcher"
-            android:title="Login" />
+            android:title="Đăng nhập" />
         <item
             android:id="@+id/nav_register"
             android:icon="@drawable/ic_launcher"
-            android:title="Register" />
+            android:title="Đăng ký" />
 
     </group>
 
@@ -37,5 +37,5 @@
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_launcher"
-        android:title="Logout"/>
+        android:title="Đăng xuất"/>
 </menu>

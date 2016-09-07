@@ -58,12 +58,34 @@ public void GetLogin(String txtEmail,String txtPass){
     resClient.GetService().GetLogin(txtEmail, txtPass, new Callback<List<UserDto>>() {
         @Override
         public void success(List<UserDto> userDtos, Response response) {
-             UserDto.UserEmail=userDtos.get(0).email;
-            UserDto.UserName=userDtos.get(0).full_name;
-            UserDto.login=true;
-            Preference.savePreference(getApplicationContext());
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
-            finish();
+            if (userDtos.get(0).IDout==1){
+                UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.login=true;
+                Preference.savePreference(getApplicationContext());
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            if (userDtos.get(0).IDout==0){
+                UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.login=false;
+                Preference.savePreference(getApplicationContext());
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_error), Toast.LENGTH_SHORT).show();
+
+            }
+            if (userDtos.get(0).IDout==-1){
+                UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.login=false;
+                Preference.savePreference(getApplicationContext());
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_deactive), Toast.LENGTH_SHORT).show();
+
+            }
+
         }
 
         @Override

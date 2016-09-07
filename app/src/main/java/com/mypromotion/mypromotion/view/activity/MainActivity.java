@@ -3,6 +3,7 @@ package com.mypromotion.mypromotion.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -70,6 +71,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         header=navigationView.inflateHeaderView(R.layout.drawer_header);
         tvHeaderName=(TextView)header.findViewById(R.id.tvHeaderName);
         tvHeaderEmail=(TextView)header.findViewById(R.id.tvHeaderEmail);
+        imgHeaderUser=(ImageView)header.findViewById(R.id.drawer_head_img);
         Preference.restorePreference(getApplicationContext());
         setupViewPager(viewPager);
         setupTabLayout(tabLayout);
@@ -81,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+            LoadData();
     }//end Oncreate
 
 
@@ -89,7 +91,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     public void onPause() {
         super.onPause();
         Preference.savePreference(getApplicationContext());
-        hideItem();
+        LoadData();
 
 
     }
@@ -97,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     public void onResume() {
         super.onResume();
        Preference.restorePreference(getApplicationContext());
-        hideItem();
+        LoadData();
 
     }
     private void setupTabLayout(TabLayout tabLayout) {
@@ -221,7 +223,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     }
 
 
-    private void hideItem(){
+    private void LoadData(){
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
         if(UserDto.login) {
@@ -230,7 +232,14 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             navigationView.getMenu().setGroupVisible(R.id.gr_first, false);
             tvHeaderName.setText(UserDto.UserName);
             tvHeaderEmail.setText(UserDto.UserEmail);
-           // Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.ic_image).into(imgHeaderUser);
+            String t=UserDto.UserUrl;
+            if (UserDto.UserUrl!=""){
+                Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.ic_image).into(imgHeaderUser);
+            }
+            else {
+                imgHeaderUser.setImageResource(R.drawable.ic_launcher);
+            }
+
             //click header
             header.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -243,8 +252,9 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             navigationView.getMenu().setGroupVisible(R.id.gr_second, false);
             nav_Menu.findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().setGroupVisible(R.id.gr_first, true);
-            tvHeaderName.setText("");
-            tvHeaderEmail.setText("");
+            tvHeaderName.setText("Your name");
+            tvHeaderEmail.setText("Email@example.com");
+            imgHeaderUser.setImageResource(R.drawable.ic_launcher);
             header.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

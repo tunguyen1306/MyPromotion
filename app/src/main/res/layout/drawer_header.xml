@@ -14,29 +14,32 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/drawer_head_img"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:src="@drawable/ic_launcher"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_alignStart="@+id/linearLayout"
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="5dp"
             android:gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/linearLayout">
 
 
             <TextView
                 android:id="@+id/tvHeaderName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center|left"
                 android:text="your_name"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
@@ -52,7 +55,7 @@
                 android:visibility="visible"
                 android:gravity="left"
                 android:text="your_email@gmail.com"
-                android:layout_gravity="center"
+                android:layout_gravity="center|left"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:textStyle="bold" />
