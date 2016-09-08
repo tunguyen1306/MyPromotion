@@ -1,6 +1,9 @@
 package com.mypromotion.mypromotion.view.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,6 +32,7 @@ import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.UserDto;
+import com.mypromotion.mypromotion.model.data_list;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -45,10 +50,8 @@ import retrofit.mime.TypedFile;
 
 public class Register extends ActionBarActivity {
 
-    //photo result code...
-    private static final int GALLERY_PHOTO_CODE = 1;
-
-    Bitmap bitmap = null;
+    int PICK_IMAGE_REQUEST = 1;
+    int CAMERA_REQUEST = 0;
     //control
     private Toolbar toolbar;
     private EditText
@@ -102,31 +105,12 @@ public class Register extends ActionBarActivity {
         imgRegister_profiler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFileExecutor executor = new UploadFileExecutor();
-                executor.execute(bitmap);
-                Toast.makeText(getApplicationContext(), "Chọn ảnh", Toast.LENGTH_SHORT).show();
+
+                alertDialog();
             }
         });
     }//end onCreate
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        //getting the result code...
-        if(resultCode == RESULT_OK && requestCode == GALLERY_PHOTO_CODE){
-            Uri selectedImage = data.getData();
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                if(bitmap != null){
-                    imgRegister_profiler.setImageBitmap(bitmap);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-        }
-    }
     public void setUpActionBar() {
         setSupportActionBar(toolbar);
         ActionBar mActionBar = getSupportActionBar();
@@ -182,98 +166,102 @@ public class Register extends ActionBarActivity {
                     }
                 });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            Uri uri = getImageUri(getApplicationContext(), photo);
 
-    private TypedFile getFileTyped(Bitmap image){
-        //the image folder with content...
-        File folderPath = new File(getCacheDir(),"imageUploadFolder");
-        if( !folderPath.exists() ){
-            folderPath.mkdir();
+            TypedFile photoTypedFile = new TypedFile("image/*",new File(getRealPathFromURI(uri)));
+            uploadFile(photoTypedFile);
         }
-
-        try {
-            File file = new File(folderPath, "img-" + System.currentTimeMillis() + ".jpg");
-
-            file.createNewFile();
-
-            FileOutputStream out = null;
-
-            out = new FileOutputStream(file);
-            image.compress(Bitmap.CompressFormat.JPEG, 85, out);
-            out.flush();
-
-            return new TypedFile("image/jpeg", file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private ServiceConnect serviceConnect(){
-        BaseAplication app = (BaseAplication)this.getApplication();
-        return app.serviceConnect();
-    }
-
-    private class UploadFileExecutor extends AsyncTask<Bitmap, Void, String> {
-
-        ProgressDialog progressDialog;
-
-        public UploadFileExecutor(){
-            progressDialog = new ProgressDialog(Register.this);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            //processing the progress dialog...
-//            progressDialog.setMessage(getString(R.string.uploading));
-//            progressDialog.setIndeterminate(true);
-//            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(Bitmap... params) {
-            //get and process the bitmap...
-            Bitmap bitmap = params[0]; //check for null pointer exceptions here
-            TypedFile typedFile = getFileTyped(bitmap);
-
-            //sending values with String..
-            Date date = new Date();
-            String sampleSender = date.toString();
-
-            //doing the actual sending...
-            if(typedFile != null){
-                try {
-                    String result = serviceConnect().postValues(sampleSender, typedFile);
-                    return result;
-                }catch (Exception ex){
-
-                }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                TypedFile photoTypedFile = new TypedFile("image/*",new File(getRealPathFromURI(uri)));
+                uploadFile(photoTypedFile);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            return null;
         }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(progressDialog.isShowing())
-                progressDialog.dismiss();
-
-            //check if result is not null, and send it..
-            if(s == null){
-                Toast.makeText(Register.this, "Lỗi", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            //otherwise show content...
-            Toast.makeText(Register.this, s, Toast.LENGTH_LONG).show();
-
-        }
     }
 
+    public void alertDialog() {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(Register.this);
 
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                Register.this,
+                android.R.layout.simple_list_item_1);
+        arrayAdapter.add("Chụp ảnh");
+        arrayAdapter.add("Thư viện");
+
+        builderSingle.setNegativeButton(
+                "cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(
+                arrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        AlertDialog.Builder builderInner = new AlertDialog.Builder(
+                                Register.this);
+                        if (strName.contentEquals("Chụp ảnh")) {
+                            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                        }
+
+                    }
+                });
+        builderSingle.show();
+    }
+    public String getRealPathFromURI(Uri contentUri) {
+
+        // can post image
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(contentUri,
+                proj, // Which columns to return
+                null,       // WHERE clause; which rows to return (all rows)
+                null,       // WHERE clause selection arguments (none)
+                null); // Order-by clause (ascending by name)
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+
+        return cursor.getString(column_index);
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+    public void uploadFile(TypedFile typedFile){
+        ResClient restClient1= new ResClient();
+        restClient1.GetService().UploadFile(typedFile,
+                new Callback<data_list>() {
+                    @Override
+                    public void success(data_list model_data_list, Response response) {
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+    }
 }

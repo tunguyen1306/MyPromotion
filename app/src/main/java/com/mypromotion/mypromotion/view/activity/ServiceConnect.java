@@ -3,6 +3,7 @@ package com.mypromotion.mypromotion.view.activity;
 
 import com.mypromotion.mypromotion.model.ListingDto;
 import com.mypromotion.mypromotion.model.UserDto;
+import com.mypromotion.mypromotion.model.data_list;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +31,9 @@ interface ServiceConnect {
     @GET("/GetAdvert/")
     void GetAdvert(@Query("pageNum")int pageNum,
                    Callback<List<ListingDto>> items);
+
     @Multipart
-    @Headers({"Accept: application/json"})
-    @POST("api/Upload/user/PostUserImage")
-    String postValues(@Part("file")TypedFile file);
+    @POST("/uploadmedia")
+    void UploadFile(@Part("file1")TypedFile file1,
+                    Callback<data_list> callback);
 }
