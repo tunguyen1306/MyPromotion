@@ -33,7 +33,7 @@ interface ServiceConnect {
                    Callback<List<ListingDto>> items);
 
     @Multipart
-    @POST("/uploadmedia")
+    @POST("/Upload/user/PostUserImage")
     void UploadFile(@Part("file1")TypedFile file1,
                     Callback<data_list> callback);
 }

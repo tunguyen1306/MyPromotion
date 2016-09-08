@@ -17,5 +17,6 @@
     <string name="hint_password">Password</string>
     <string name="temp_username">Richard</string>
     <string name="temp_userurl">https://pucuck.files.wordpress.com/2011/08/chicken.jpg</string>
+    <string name="facebook_app_id">1140837692656188</string>
 
 </resources>

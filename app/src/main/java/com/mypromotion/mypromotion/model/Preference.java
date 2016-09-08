@@ -28,6 +28,7 @@ public class Preference {
             edit.putInt("UserType", UserDto.UserType);
             edit.putInt("UserRole", UserDto.UserRole);
             edit.putInt("IDout", UserDto.UserIDout);
+            edit.putString("FacebookId", UserDto.FacebookId);
 
 
         }else{
@@ -43,6 +44,7 @@ public class Preference {
             edit.putInt("UserType",0);
             edit.putInt("UserRole",0);
             edit.putInt("IDout",-1);
+            edit.putString("FacebookId",null);
 
         }
         edit.clear();
@@ -61,6 +63,7 @@ public class Preference {
         UserDto.UserStatus=getPref(context).getInt("UserStatus", 0);
         UserDto.UserType=getPref(context).getInt("UserType", 0);
         UserDto.UserRole=getPref(context).getInt("UserRole", -1);
+        UserDto.UserLast=getPref(context).getString("FacebookId", "");
 
     }
 }

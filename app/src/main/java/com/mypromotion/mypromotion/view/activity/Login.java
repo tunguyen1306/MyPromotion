@@ -1,5 +1,6 @@
 package com.mypromotion.mypromotion.view.activity;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,9 +13,20 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.model.UserDto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -23,13 +35,60 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class Login extends ActionBarActivity {
-
+    private CallbackManager callbackManager;
+    LoginButton loginButton;
     EditText editEmail, editPass;
     Button btnLogin;
     //control
     private Toolbar toolbar;
+    private FacebookCallback<LoginResult> loginResultFacebookCallback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                String id = object.getString("id");
+                                String full_name = object.getString("name");
+                                String Email = object.getString("email");
+                                String gender = object.getString("gender");
 
-    //boolean
+                                String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
+                                UserDto.login = true;
+                                UserDto.UserName = full_name;
+                                UserDto.UserUrl = imgUrl;
+                                UserDto.UserEmail = Email;
+//                                UserDto.U = gender;
+                                UserDto.FacebookId = id;
+                                Preference.savePreference(getApplicationContext());
+                                Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+//                                UserRegister userRegister =new UserRegister();
+//                                userRegister.EventRegister(Email,"","","",2,1,"",imgUrl,full_name);
+//                                Intent login= new Intent(getActivity(),MainActivity.class);
+//                                startActivity(login);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,gender,email,birthday");
+            request.setParameters(parameters);
+            request.executeAsync();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +100,7 @@ public class Login extends ActionBarActivity {
         //clear focus
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +112,8 @@ public class Login extends ActionBarActivity {
         });
 
     }
-public void GetLogin(String txtEmail,String txtPass){
+
+    public void GetLogin(String txtEmail, String txtPass){
 
     ResClient resClient =new ResClient();
     resClient.GetService().GetLogin(txtEmail, txtPass, new Callback<List<UserDto>>() {
@@ -114,5 +175,4 @@ public void GetLogin(String txtEmail,String txtPass){
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
-
 }

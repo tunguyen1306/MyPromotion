@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
+import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.model.UserDto;
 import com.mypromotion.mypromotion.model.data_list;
 import com.squareup.picasso.Picasso;
@@ -66,6 +67,7 @@ public class Register extends ActionBarActivity {
     private Button btnRegister;
     ImageButton imgRegister_profiler;
     ResClient resClient = new ResClient();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,18 +76,16 @@ public class Register extends ActionBarActivity {
         //clear focus
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
-        editRegisterEmail =(EditText)findViewById(R.id.editRegisterEmail);
-                editRegisterPassWord=(EditText)findViewById(R.id.editRegisterPassWord);
-        editRegisterPassWordCon=(EditText)findViewById(R.id.editRegisterPassWordCon);
-        editRegisterPhone=(EditText)findViewById(R.id.editRegisterPhone);
-        editRegisterFist=(EditText)findViewById(R.id.editRegisterFist);
-        editRegisterLast=(EditText)findViewById(R.id.editRegisterLast);
-        editRegisterFullName=(EditText)findViewById(R.id.editRegisterFullName);
-        imgRegister_profiler=(ImageButton)findViewById(R.id.imgRegister_profiler);
+        editRegisterEmail = (EditText) findViewById(R.id.editRegisterEmail);
+        editRegisterPassWord = (EditText) findViewById(R.id.editRegisterPassWord);
+        editRegisterPassWordCon = (EditText) findViewById(R.id.editRegisterPassWordCon);
+        editRegisterPhone = (EditText) findViewById(R.id.editRegisterPhone);
+        editRegisterFist = (EditText) findViewById(R.id.editRegisterFist);
+        editRegisterLast = (EditText) findViewById(R.id.editRegisterLast);
+        editRegisterFullName = (EditText) findViewById(R.id.editRegisterFullName);
+        imgRegister_profiler = (ImageButton) findViewById(R.id.imgRegister_profiler);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
-
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,15 +98,17 @@ public class Register extends ActionBarActivity {
                 firstName = editRegisterFist.getText().toString();
                 lastName = editRegisterLast.getText().toString();
                 fullName = editRegisterFullName.getText().toString();
+                imgurl = UserDto.UserUrl;
                 EventRegister(Email, Phone, firstName, lastName, 1, 1, passWord, imgurl, fullName);
 
             }
         });
+
         imgRegister_profiler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                alertDialog();
+                ShowSelect();
             }
         });
     }//end onCreate
@@ -133,8 +135,8 @@ public class Register extends ActionBarActivity {
     }
 
     public void EventRegister(String Email, String Phone, String firstName, String lastName, int type_role, int status, String passWord, String imgUrl, String fullName) {
-
-        final UserDto userRegister = new UserDto(0,"","");
+        Preference.restorePreference(getApplicationContext());
+        final UserDto userRegister = new UserDto(0, "", "");
         userRegister.email_user_promotion = Email;
         userRegister.phone_user_promotion = Phone;
         userRegister.first_name_user_promotion = firstName;
@@ -166,6 +168,8 @@ public class Register extends ActionBarActivity {
                     }
                 });
     }
+
+    //////////////////Upload Image//////////////////////////
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,14 +177,14 @@ public class Register extends ActionBarActivity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Uri uri = getImageUri(getApplicationContext(), photo);
 
-            TypedFile photoTypedFile = new TypedFile("image/*",new File(getRealPathFromURI(uri)));
+            TypedFile photoTypedFile = new TypedFile("image/*", new File(getRealPathFromURI(uri)));
             uploadFile(photoTypedFile);
         }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                TypedFile photoTypedFile = new TypedFile("image/*",new File(getRealPathFromURI(uri)));
+                TypedFile photoTypedFile = new TypedFile("image/*", new File(getRealPathFromURI(uri)));
                 uploadFile(photoTypedFile);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -189,14 +193,14 @@ public class Register extends ActionBarActivity {
 
     }
 
-    public void alertDialog() {
+    public void ShowSelect() {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(Register.this);
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 Register.this,
                 android.R.layout.simple_list_item_1);
-        arrayAdapter.add("Chụp ảnh");
-        arrayAdapter.add("Thư viện");
+        arrayAdapter.add("Dùng máy ảnh");
+        arrayAdapter.add("Thư viện ảnh");
 
         builderSingle.setNegativeButton(
                 "cancel",
@@ -229,6 +233,7 @@ public class Register extends ActionBarActivity {
                 });
         builderSingle.show();
     }
+
     public String getRealPathFromURI(Uri contentUri) {
 
         // can post image
@@ -243,19 +248,23 @@ public class Register extends ActionBarActivity {
 
         return cursor.getString(column_index);
     }
+
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
-    public void uploadFile(TypedFile typedFile){
-        ResClient restClient1= new ResClient();
+
+    public void uploadFile(TypedFile typedFile) {
+        ResClient restClient1 = new ResClient();
         restClient1.GetService().UploadFile(typedFile,
                 new Callback<data_list>() {
                     @Override
-                    public void success(data_list model_data_list, Response response) {
-
+                    public void success(data_list data_list, Response response) {
+                        UserDto.UserUrl = data_list.Message;
+                        Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.ic_image).into(imgRegister_profiler);
+                        Preference.savePreference(getApplicationContext());
                     }
 
                     @Override
@@ -264,4 +273,5 @@ public class Register extends ActionBarActivity {
                     }
                 });
     }
+    //////////////////End Upload Image//////////////////////////
 }
