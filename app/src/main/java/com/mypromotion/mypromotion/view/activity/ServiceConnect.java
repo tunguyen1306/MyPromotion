@@ -10,6 +10,7 @@ import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Headers;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
@@ -30,7 +31,7 @@ interface ServiceConnect {
     void GetAdvert(@Query("pageNum")int pageNum,
                    Callback<List<ListingDto>> items);
     @Multipart
-    @POST("/upload")
-    void upload(@Part("myfile") TypedFile file,
-                Callback<String> cb);
+    @Headers({"Accept: application/json"})
+    @POST("api/Upload/user/PostUserImage")
+    String postValues(@Part("file")TypedFile file);
 }

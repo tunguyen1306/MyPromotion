@@ -1,24 +1,41 @@
 package com.mypromotion.mypromotion.view.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.UserDto;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
@@ -28,6 +45,10 @@ import retrofit.mime.TypedFile;
 
 public class Register extends ActionBarActivity {
 
+    //photo result code...
+    private static final int GALLERY_PHOTO_CODE = 1;
+
+    Bitmap bitmap = null;
     //control
     private Toolbar toolbar;
     private EditText
@@ -41,7 +62,7 @@ public class Register extends ActionBarActivity {
 
     private Button btnRegister;
     ImageButton imgRegister_profiler;
-
+    ResClient resClient = new ResClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +87,7 @@ public class Register extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 String fullName, passWord, passWordCon, Email, Phone, firstName, lastName, imgurl = "gtrgte";
-                UserDto userRegister = new UserDto();
+
                 passWordCon = editRegisterPassWordCon.getText().toString();
                 passWord = editRegisterPassWord.getText().toString();
                 Email = editRegisterEmail.getText().toString();
@@ -81,11 +102,31 @@ public class Register extends ActionBarActivity {
         imgRegister_profiler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UploadFileExecutor executor = new UploadFileExecutor();
+                executor.execute(bitmap);
                 Toast.makeText(getApplicationContext(), "Chọn ảnh", Toast.LENGTH_SHORT).show();
             }
         });
     }//end onCreate
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        //getting the result code...
+        if(resultCode == RESULT_OK && requestCode == GALLERY_PHOTO_CODE){
+            Uri selectedImage = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                if(bitmap != null){
+                    imgRegister_profiler.setImageBitmap(bitmap);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+    }
     public void setUpActionBar() {
         setSupportActionBar(toolbar);
         ActionBar mActionBar = getSupportActionBar();
@@ -108,8 +149,8 @@ public class Register extends ActionBarActivity {
     }
 
     public void EventRegister(String Email, String Phone, String firstName, String lastName, int type_role, int status, String passWord, String imgUrl, String fullName) {
-        ResClient resClient = new ResClient();
-        final UserDto userRegister = new UserDto();
+
+        final UserDto userRegister = new UserDto(0,"","");
         userRegister.email_user_promotion = Email;
         userRegister.phone_user_promotion = Phone;
         userRegister.first_name_user_promotion = firstName;
@@ -142,22 +183,97 @@ public class Register extends ActionBarActivity {
                 });
     }
 
-    public void Upload()
-    {
-//        ResClient service = ResClient.createService(ResClient.class);
-//        TypedFile typedFile = new TypedFile("multipart/form-data", new File("path/to/your/file"));
-//        String description = "hello, this is description speaking";
-//
-//        service.upload(typedFile, description, new Callback<String>() {
-//            @Override
-//            public void success(String s, Response response) {
-//                Log.e("Upload", "success");
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError error) {
-//                Log.e("Upload", "error");
-//            }
-//        });
+    private TypedFile getFileTyped(Bitmap image){
+        //the image folder with content...
+        File folderPath = new File(getCacheDir(),"imageUploadFolder");
+        if( !folderPath.exists() ){
+            folderPath.mkdir();
+        }
+
+        try {
+            File file = new File(folderPath, "img-" + System.currentTimeMillis() + ".jpg");
+
+            file.createNewFile();
+
+            FileOutputStream out = null;
+
+            out = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.JPEG, 85, out);
+            out.flush();
+
+            return new TypedFile("image/jpeg", file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
+
+    private ServiceConnect serviceConnect(){
+        BaseAplication app = (BaseAplication)this.getApplication();
+        return app.serviceConnect();
+    }
+
+    private class UploadFileExecutor extends AsyncTask<Bitmap, Void, String> {
+
+        ProgressDialog progressDialog;
+
+        public UploadFileExecutor(){
+            progressDialog = new ProgressDialog(Register.this);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //processing the progress dialog...
+//            progressDialog.setMessage(getString(R.string.uploading));
+//            progressDialog.setIndeterminate(true);
+//            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(Bitmap... params) {
+            //get and process the bitmap...
+            Bitmap bitmap = params[0]; //check for null pointer exceptions here
+            TypedFile typedFile = getFileTyped(bitmap);
+
+            //sending values with String..
+            Date date = new Date();
+            String sampleSender = date.toString();
+
+            //doing the actual sending...
+            if(typedFile != null){
+                try {
+                    String result = serviceConnect().postValues(sampleSender, typedFile);
+                    return result;
+                }catch (Exception ex){
+
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(progressDialog.isShowing())
+                progressDialog.dismiss();
+
+            //check if result is not null, and send it..
+            if(s == null){
+                Toast.makeText(Register.this, "Lỗi", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //otherwise show content...
+            Toast.makeText(Register.this, s, Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+
 }

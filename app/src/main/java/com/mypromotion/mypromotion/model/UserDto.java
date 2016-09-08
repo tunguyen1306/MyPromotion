@@ -188,6 +188,16 @@ public class UserDto {
 //    }
 //    public String url_img ;
 
+    public UserDto(int UserId,String AvatarData,String AvatarName){
+        this.UserId=UserId;
+        this.img_user_promotion=AvatarData;
 
+    }
+    public class Model_data_string {
+        public int Code;
+        public String Message;
+        public String Data;
+    }
 
 }
+
