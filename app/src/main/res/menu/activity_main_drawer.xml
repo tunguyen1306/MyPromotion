@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/gr_home"
+        android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/icon_home"
+            android:title="Trang chủ"
+            />
+
+    </group>
     <group
         android:id="@+id/gr_first"
         android:checkableBehavior="single">
@@ -23,15 +33,20 @@
             <item
                 android:id="@+id/nav_manager_post"
                 android:icon="@drawable/ic_launcher"
-                android:title="Manager post" />
+                android:title="Sản phẩm đã xem" />
             <item
-                android:id="@+id/nav_post"
+                android:id="@+id/nav_email"
                 android:icon="@drawable/ic_launcher"
-                android:title="Post" />
+                android:title="Hộp thư" />
+
             <item
-                android:id="@+id/nav_share_post"
+                android:id="@+id/nav_acount_setting"
                 android:icon="@drawable/ic_launcher"
-                android:title="Share"/>
+                android:title="Cài đặt tài khoản"/>
+            <item
+                android:id="@+id/nav_about_products"
+                android:icon="@drawable/ic_launcher"
+                android:title="Thông tin sản phẩm"/>
 
         </group>
     </item>

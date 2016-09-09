@@ -6,7 +6,7 @@
     <string name="msg_exit_app">Please click BACK again to exit</string>
     <string name="msg_login_success">Đăng nhập thành công !</string>
     <string name="msg_login_deactive">Tài khoản của bạn chưa Active !</string>
-    <string name="msg_login_error">Sai password hoặc username !</string>
+    <string name="msg_login_error">Sai tên đăng nhập hoặc mật khẩu !</string>
     <string name="msg_logout">Đăng xuất thành công !</string>
     <string name="msg_request_login">Please login to continue !</string>
     <string name="msg_empty_name">Enter your full name</string>

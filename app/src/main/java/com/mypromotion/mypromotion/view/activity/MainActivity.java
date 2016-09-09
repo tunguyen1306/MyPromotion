@@ -3,10 +3,7 @@ package com.mypromotion.mypromotion.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.drawable.Drawable;
+
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -21,8 +18,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +25,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.mypromotion.mypromotion.R;
@@ -40,11 +34,11 @@ import com.mypromotion.mypromotion.view.fragment.Fragment1;
 import com.mypromotion.mypromotion.view.fragment.Fragment2;
 import com.mypromotion.mypromotion.view.fragment.Home;
 import com.squareup.picasso.Picasso;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class MainActivity extends ActionBarActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -100,7 +94,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         setupActionBar();
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.getMenu().getItem(0).setChecked(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -169,11 +163,18 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
                 Intent register=new Intent(getApplicationContext(),Register.class);
                 startActivity(register);
                 break;
-            case R.id.nav_manager_post:
+            case R.id.nav_home:
+                Intent home=new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(home);
                 break;
-            case R.id.nav_post:
+            case R.id.nav_acount_setting:
+                Intent acount_setting=new Intent(getApplicationContext(),SettingAccount.class);
+                startActivity(acount_setting);
+                UserDto.login=true;
                 break;
-            case R.id.nav_share_post:
+            case R.id.nav_about_products:
+                break;
+            case R.id.nav_email:
                 break;
             case R.id.nav_logout:
                 UserDto.login=false;
@@ -287,5 +288,47 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             });
         }
     }
+    public void GetLogin(String txtEmail, String txtPass){
 
+        ResClient resClient =new ResClient();
+        resClient.GetService().GetLogin(txtEmail, txtPass, new Callback<List<UserDto>>() {
+            @Override
+            public void success(List<UserDto> userDtos, Response response) {
+                if (userDtos.get(0).IDout==1){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=true;
+                    Preference.savePreference(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                if (userDtos.get(0).IDout==0){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=false;
+                    Preference.savePreference(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_error), Toast.LENGTH_SHORT).show();
+
+                }
+                if (userDtos.get(0).IDout==-1){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=false;
+                    Preference.savePreference(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_deactive), Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+    }
 }

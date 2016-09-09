@@ -73,7 +73,6 @@ public class Register extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //clear focus
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
         editRegisterEmail = (EditText) findViewById(R.id.editRegisterEmail);
@@ -100,6 +99,7 @@ public class Register extends ActionBarActivity {
                 fullName = editRegisterFullName.getText().toString();
                 imgurl = UserDto.UserUrl;
                 EventRegister(Email, Phone, firstName, lastName, 1, 1, passWord, imgurl, fullName);
+
 
             }
         });
@@ -136,28 +136,30 @@ public class Register extends ActionBarActivity {
 
     public void EventRegister(String Email, String Phone, String firstName, String lastName, int type_role, int status, String passWord, String imgUrl, String fullName) {
         Preference.restorePreference(getApplicationContext());
-        final UserDto userRegister = new UserDto(0, "", "");
-        userRegister.email_user_promotion = Email;
-        userRegister.phone_user_promotion = Phone;
-        userRegister.first_name_user_promotion = firstName;
-        userRegister.last_name_user_promotion = lastName;
-        userRegister.type_role_user_promotion = type_role;
-        userRegister.status_user_promotion = status;
-        userRegister.pass_user_promotion = passWord;
-        userRegister.img_user_promotion = imgUrl;
-        userRegister.full_name_user_promotion = fullName;
-        resClient.GetService().GetRegister(userRegister
+        final UserDto userDto = new UserDto(0, "", "");
+        userDto.email_user_promotion = Email;
+        userDto.phone_user_promotion = Phone;
+        userDto.first_name_user_promotion = firstName;
+        userDto.last_name_user_promotion = lastName;
+        userDto.type_role_user_promotion = type_role;
+        userDto.status_user_promotion = status;
+        userDto.pass_user_promotion = passWord;
+        userDto.img_user_promotion = imgUrl;
+        userDto.full_name_user_promotion = fullName;
+        resClient.GetService().GetRegister(userDto
                 , new Callback<List<UserDto>>() {
                     @Override
                     public void success(List<UserDto> userDtos, Response response) {
                         if (userDtos.get(0).IDout == 0) {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_register_success), Toast.LENGTH_SHORT).show();
-                            finish();
+                            GetLogin(userDtos.get(0).email_user_promotion,userDtos.get(0).pass_user_promotion);
+                           Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
                         }
                         if (userDtos.get(0).IDout == 1) {
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_register_already), Toast.LENGTH_SHORT).show();
                         }
-                        userRegister.IDout = userDtos.get(0).IDout;
+                        UserDto.UserIDout = userDtos.get(0).IDout;
 
                     }
 
@@ -168,7 +170,50 @@ public class Register extends ActionBarActivity {
                     }
                 });
     }
+    public void GetLogin(String txtEmail, String txtPass){
 
+        ResClient resClient =new ResClient();
+        resClient.GetService().GetLogin(txtEmail, txtPass, new Callback<List<UserDto>>() {
+            @Override
+            public void success(List<UserDto> userDtos, Response response) {
+                if (userDtos.get(0).IDout==1){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=true;
+                    Preference.savePreference(getApplicationContext());
+                   // Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+                }
+                if (userDtos.get(0).IDout==0){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=false;
+                    Preference.savePreference(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_error), Toast.LENGTH_SHORT).show();
+
+                }
+                if (userDtos.get(0).IDout==-1){
+                    UserDto.UserEmail=userDtos.get(0).email_user_promotion;
+                    UserDto.UserName=userDtos.get(0).full_name_user_promotion;
+                    UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                    UserDto.login=false;
+                    Preference.savePreference(getApplicationContext());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_deactive), Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+    }
     //////////////////Upload Image//////////////////////////
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

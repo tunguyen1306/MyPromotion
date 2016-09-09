@@ -23,17 +23,17 @@
             android:orientation="vertical"
             android:scrollbarAlwaysDrawVerticalTrack="true">
 
-            <TextView
-                android:id="@+id/txtRegiste_Title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="22dp"
-                android:gravity="center_horizontal"
-                android:text="Đăng ký"
-                android:textColor="@color/greenToolBarBg1"
-                android:textSize="26sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/txtRegiste_Title"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:layout_marginTop="22dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Đăng ký"-->
+                <!--android:textColor="@color/greenToolBarBg1"-->
+                <!--android:textSize="26sp"-->
+                <!--android:textStyle="bold" />-->
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -174,7 +174,6 @@
                 android:layout_below="@+id/txtRegiste_Title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
                 android:src="@drawable/com_facebook_profile_picture_blank_portrait"
                 android:elevation="4dp" />
         </RelativeLayout>

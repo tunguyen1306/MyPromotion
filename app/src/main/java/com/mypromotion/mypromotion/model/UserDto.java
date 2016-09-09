@@ -12,7 +12,7 @@ import retrofit.client.Response;
  * Created by Administrator on 9/6/2016.
  */
 public class UserDto {
-    public static  String UserEmail,UserName,UserUrl,UserFirst,UserLast,UserPhone,FacebookId;
+    public static  String UserEmail,UserName,UserUrl,UserFirst,UserLast,UserPhone,FacebookId,UserPass;
     public static boolean login;
     public static int UserId,UserStatus,UserRole,UserType,UserIDout;
 
