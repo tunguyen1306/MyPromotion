@@ -16,7 +16,7 @@
             android:id="@+id/drawer_head_img"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait"
             android:layout_above="@+id/linearLayout"
             android:layout_alignLeft="@+id/linearLayout"
             android:layout_alignStart="@+id/linearLayout"

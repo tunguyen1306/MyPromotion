@@ -167,14 +167,15 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/imgRegister_profiler"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_below="@+id/txtRegiste_Title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/com_facebook_profile_picture_blank_portrait"
+                android:scaleType="centerCrop"
+                android:src="@drawable/com_facebook_profile_picture_blank_portrait"
                 android:elevation="4dp" />
         </RelativeLayout>
 

@@ -1,6 +1,8 @@
 package com.mypromotion.mypromotion.view.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
@@ -24,6 +27,7 @@ import com.facebook.login.widget.LoginButton;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.model.UserDto;
+import com.mypromotion.mypromotion.model.clsEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +43,6 @@ public class Login extends ActionBarActivity {
     LoginButton loginButton;
     EditText editEmail, editPass;
     Button btnLogin;
-    //control
     private Toolbar toolbar;
     private FacebookCallback<LoginResult> loginResultFacebookCallback = new FacebookCallback<LoginResult>() {
         @Override
@@ -53,20 +56,20 @@ public class Login extends ActionBarActivity {
                                 String full_name = object.getString("name");
                                 String Email = object.getString("email");
                                 String gender = object.getString("gender");
-
+                                String first_name=object.getString("first_name");
+                                String last_name=object.getString("last_name");
+                                //String phone=object.getString("phone");
                                 String imgUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
                                 UserDto.login = true;
                                 UserDto.UserName = full_name;
                                 UserDto.UserUrl = imgUrl;
                                 UserDto.UserEmail = Email;
-//                                UserDto.U = gender;
                                 UserDto.FacebookId = id;
+                                UserDto.UserFirst = first_name;
+                                UserDto.UserLast = last_name;
+                                //UserDto.UserPhone = phone;
                                 Preference.savePreference(getApplicationContext());
                                 Toast.makeText(getApplicationContext(),"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
-//                                UserRegister userRegister =new UserRegister();
-//                                userRegister.EventRegister(Email,"","","",2,1,"",imgUrl,full_name);
-//                                Intent login= new Intent(getActivity(),MainActivity.class);
-//                                startActivity(login);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -92,14 +95,82 @@ public class Login extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(Login.this);
         setContentView(R.layout.activity_login);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         editEmail = (EditText) findViewById(R.id.editEmailLogin);
         editPass = (EditText) findViewById(R.id.editPassWordLogin);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        //clear focus
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpActionBar();
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        loginButton =(LoginButton)findViewById(R.id.login_button);
+        callbackManager=CallbackManager.Factory.create();
+        loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions("email");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                //savePreference(getApplicationContext());
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback(){
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response){
+                                try
+                                {
+                                    String id = object.getString("id");
+                                    String   Username = object.getString("name");
+                                    String   Email = object.getString("email");
+                                    String gender = object.getString("gender");
+                                    String first_name=object.getString("first_name");
+                                    String last_name=object.getString("last_name");
+                                    //String phone=object.getString("phone");
+                                    String imgUrl="https://graph.facebook.com/" + id + "/picture?type=large";
+                                    UserDto.login=true;
+                                    UserDto.UserName=Username;
+                                    UserDto.UserUrl = imgUrl;
+                                    UserDto.UserEmail = Email;
+                                    UserDto.UserFirst = first_name;
+                                    UserDto.UserLast = last_name;
+                                    //UserDto.UserPhone=phone;
+                                    Preference.savePreference(getApplicationContext());
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
+                                 clsEvent.EventRegister(UserDto.UserEmail,UserDto.UserPhone,UserDto.UserFirst,UserDto.UserLast,1,1,"", UserDto.UserUrl,UserDto.UserName);
+                                    finish();
+                                }
+                                catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_error), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields","id,name,gender,email,birthday,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(),"cancle",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +243,13 @@ public class Login extends ActionBarActivity {
                 finish();
             }
         });
+
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

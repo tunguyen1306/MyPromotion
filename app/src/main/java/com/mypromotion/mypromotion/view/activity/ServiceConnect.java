@@ -18,7 +18,7 @@ import retrofit.http.Part;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
-interface ServiceConnect {
+public interface ServiceConnect {
 
     @GET("/GetLogin/")
     void GetLogin(@Query("email")String email,

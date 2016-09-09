@@ -65,7 +65,7 @@ public class Register extends ActionBarActivity {
             editRegisterFullName;
 
     private Button btnRegister;
-    ImageButton imgRegister_profiler;
+    ImageView imgRegister_profiler;
     ResClient resClient = new ResClient();
 
     @Override
@@ -83,7 +83,7 @@ public class Register extends ActionBarActivity {
         editRegisterFist = (EditText) findViewById(R.id.editRegisterFist);
         editRegisterLast = (EditText) findViewById(R.id.editRegisterLast);
         editRegisterFullName = (EditText) findViewById(R.id.editRegisterFullName);
-        imgRegister_profiler = (ImageButton) findViewById(R.id.imgRegister_profiler);
+        imgRegister_profiler = (ImageView) findViewById(R.id.imgRegister_profiler);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +219,7 @@ public class Register extends ActionBarActivity {
                         String strName = arrayAdapter.getItem(which);
                         AlertDialog.Builder builderInner = new AlertDialog.Builder(
                                 Register.this);
-                        if (strName.contentEquals("Chụp ảnh")) {
+                        if (strName.contentEquals("Dùng máy ảnh")) {
                             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                             startActivityForResult(cameraIntent, CAMERA_REQUEST);
                         } else {
@@ -251,7 +251,7 @@ public class Register extends ActionBarActivity {
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG,100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }

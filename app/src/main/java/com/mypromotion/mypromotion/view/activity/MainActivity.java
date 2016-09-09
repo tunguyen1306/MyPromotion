@@ -68,20 +68,20 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-                try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.facebook.samples.hellofacebook",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "com.mypromotion.mypromotion",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -104,7 +104,9 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
+
             LoadData();
     }//end Oncreate
 
@@ -256,7 +258,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             tvHeaderEmail.setText(UserDto.UserEmail);
             String t=UserDto.UserUrl;
             if (UserDto.UserUrl!=""){
-                Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.ic_image).into(imgHeaderUser);
+                Picasso.with(getApplicationContext()).load(UserDto.UserUrl).error(R.drawable.com_facebook_profile_picture_blank_portrait).into(imgHeaderUser);
             }
             else {
                 imgHeaderUser.setImageResource(R.drawable.ic_launcher);
