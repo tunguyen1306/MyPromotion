@@ -31,7 +31,7 @@
             android:id="@+id/gr_second"
             android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_manager_post"
+                android:id="@+id/nav_advert_save"
                 android:icon="@drawable/ic_launcher"
                 android:title="Sản phẩm đã xem" />
             <item

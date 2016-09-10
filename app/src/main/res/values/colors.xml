@@ -15,5 +15,8 @@
     <color name="greenToolBarBg1">#0097A7</color>//đậm
     <color name="greenTabTextColor">#B2EBF2</color>
     <color name="BGLayoutColor">#FFFFFF</color>
+    <color name="TextColor">#212121</color>
+    <color name="xamnhe">#ffdedede</color>
+
 
 </resources>

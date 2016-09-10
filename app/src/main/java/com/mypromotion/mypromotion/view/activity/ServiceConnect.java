@@ -32,6 +32,10 @@ public interface ServiceConnect {
     void GetAdvert(@Query("pageNum")int pageNum,
                    Callback<List<ListingDto>> items);
 
+    @GET("/GetAdvert/")
+    void GetAdvertDetail(@Query("idAvert")int idAvert,
+                   Callback<List<ListingDto>> items);
+
     @Multipart
     @POST("/Upload/user/PostUserImage")
     void UploadFile(@Part("file1")TypedFile file1,

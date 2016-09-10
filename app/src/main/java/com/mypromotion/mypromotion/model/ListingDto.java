@@ -4,6 +4,14 @@ package com.mypromotion.mypromotion.model;
  * Created by TuNguyen on 09/06/2016.
  */
 public class ListingDto {
+
+    public ListingDto(int AdvertId,String AdvertName,String AdvertImg,String AdvertPrice) {
+        this.AdvertId=AdvertId;
+        this.AdvertName=AdvertName;
+        this.AdvertImg=AdvertImg;
+        this.AdvertPrice=AdvertPrice;
+    }
+
     public int getAdvertId() {
         return AdvertId;
     }

@@ -29,7 +29,7 @@ public class Preference {
             edit.putInt("UserRole", UserDto.UserRole);
             edit.putInt("IDout", UserDto.UserIDout);
             edit.putString("FacebookId", UserDto.FacebookId);
-            edit.putString("FacebookId", UserDto.UserPass);
+            edit.putString("UserPass", UserDto.UserPass);
 
 
         }else{
@@ -46,7 +46,7 @@ public class Preference {
             edit.putInt("UserRole",0);
             edit.putInt("IDout",-1);
             edit.putString("FacebookId",null);
-            edit.putString("FacebookId",null);
+            edit.putString("UserPass",null);
 
         }
         edit.clear();

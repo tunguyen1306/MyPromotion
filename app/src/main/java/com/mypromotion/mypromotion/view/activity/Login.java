@@ -194,6 +194,9 @@ public class Login extends ActionBarActivity {
                 UserDto.UserEmail=userDtos.get(0).email_user_promotion;
                 UserDto.UserName=userDtos.get(0).full_name_user_promotion;
                 UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.UserPhone=userDtos.get(0).phone_user_promotion;
+                UserDto.UserFirst=userDtos.get(0).first_name_user_promotion;
+                UserDto.UserLast=userDtos.get(0).last_name_user_promotion;
                 UserDto.login=true;
                 Preference.savePreference(getApplicationContext());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_success), Toast.LENGTH_SHORT).show();
@@ -203,6 +206,9 @@ public class Login extends ActionBarActivity {
                 UserDto.UserEmail=userDtos.get(0).email_user_promotion;
                 UserDto.UserName=userDtos.get(0).full_name_user_promotion;
                 UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.UserPhone=userDtos.get(0).phone_user_promotion;
+                UserDto.UserFirst=userDtos.get(0).first_name_user_promotion;
+                UserDto.UserLast=userDtos.get(0).last_name_user_promotion;
                 UserDto.login=false;
                 Preference.savePreference(getApplicationContext());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_error), Toast.LENGTH_SHORT).show();
@@ -212,6 +218,9 @@ public class Login extends ActionBarActivity {
                 UserDto.UserEmail=userDtos.get(0).email_user_promotion;
                 UserDto.UserName=userDtos.get(0).full_name_user_promotion;
                 UserDto.UserUrl=userDtos.get(0).img_user_promotion;
+                UserDto.UserPhone=userDtos.get(0).phone_user_promotion;
+                UserDto.UserFirst=userDtos.get(0).first_name_user_promotion;
+                UserDto.UserLast=userDtos.get(0).last_name_user_promotion;
                 UserDto.login=false;
                 Preference.savePreference(getApplicationContext());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_login_deactive), Toast.LENGTH_SHORT).show();

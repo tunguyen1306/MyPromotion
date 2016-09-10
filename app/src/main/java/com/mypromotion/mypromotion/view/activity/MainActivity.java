@@ -30,6 +30,7 @@ import com.facebook.login.LoginManager;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.model.UserDto;
+import com.mypromotion.mypromotion.view.fragment.FraShose;
 import com.mypromotion.mypromotion.view.fragment.Fragment1;
 import com.mypromotion.mypromotion.view.fragment.Fragment2;
 import com.mypromotion.mypromotion.view.fragment.Home;
@@ -129,8 +130,9 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new Home(),getResources().getString(R.string.title_home));
-        adapter.addFrag(new Fragment1(),getResources().getString(R.string.title_fragment1));
-        adapter.addFrag(new Fragment2(),getResources().getString(R.string.title_fragment2));
+        adapter.addFrag(new Fragment1(),getResources().getString(R.string.title_bag));
+        adapter.addFrag(new Fragment2(),getResources().getString(R.string.title_clothes));
+        adapter.addFrag(new FraShose(),getResources().getString(R.string.title_shose));
 
 
         viewPager.setAdapter(adapter);
@@ -175,6 +177,10 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             case R.id.nav_about_products:
                 break;
             case R.id.nav_email:
+                break;
+            case R.id.nav_advert_save:
+                Intent advert_save=new Intent(getApplicationContext(),AdvertSave.class);
+                startActivity(advert_save);
                 break;
             case R.id.nav_logout:
                 UserDto.login=false;

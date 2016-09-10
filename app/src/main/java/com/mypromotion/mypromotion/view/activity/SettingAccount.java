@@ -75,8 +75,6 @@ public class SettingAccount extends ActionBarActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 passWordCon = editRegisterPassWordCon.getText().toString();
                 passWord = editRegisterPassWord.getText().toString();
                 Email = editRegisterEmail.getText().toString();
@@ -174,8 +172,9 @@ public class SettingAccount extends ActionBarActivity {
                             startActivity(intent);
                         }
                         if (userDtos.get(0).IDout == 1) {
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.msg_register_already), Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(getApplicationContext(), "Tài khoản đã được cập nhật", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
                         }
                         UserDto.UserIDout = userDtos.get(0).IDout;
 

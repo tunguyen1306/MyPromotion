@@ -10,9 +10,11 @@
     <string name="title_activity_login">Đăng nhập</string>
     <string name="title_activity_register">Đăng ký</string>
     <string name="title_activity_setting_acount">Cài đặt tài khoản</string>
+    <string name="title_activity_advert_save">Sản phẩm đã xem</string>
     <string name="title_home">Trang chủ</string>
-    <string name="title_fragment1">Fragment 1</string>
-    <string name="title_fragment2">Fragment 2</string>
+    <string name="title_clothes">Quần áo</string>
+    <string name="title_bag">Túi xách</string>
+    <string name="title_shose">Giầy dép</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
