@@ -78,7 +78,7 @@ public class Home extends Fragment {
                     @Override
                     public void success(List<ListingDto> userDtos, Response response) {
                         for (int i = 0; i < userDtos.size(); i++) {
-                            int t = userDtos.get(i).AdvertId;
+
                             listIdAdvertFeauture.add(userDtos.get(i).AdvertId);
                             listNameAdvertFeauture.add(userDtos.get(i).AdvertName);
                             listPriceAdvertFeauture.add(userDtos.get(i).AdvertPrice);

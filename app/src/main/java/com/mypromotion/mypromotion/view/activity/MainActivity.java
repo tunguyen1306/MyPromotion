@@ -177,6 +177,8 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             case R.id.nav_about_products:
                 break;
             case R.id.nav_email:
+                Intent acount_setting1=new Intent(getApplicationContext(),AdvertDetail.class);
+                startActivity(acount_setting1);
                 break;
             case R.id.nav_advert_save:
                 Intent advert_save=new Intent(getApplicationContext(),AdvertSave.class);

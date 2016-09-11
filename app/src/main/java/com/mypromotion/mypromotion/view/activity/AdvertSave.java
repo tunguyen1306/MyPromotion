@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,13 +49,6 @@ public class AdvertSave extends ActionBarActivity {
         cardView=(CardView)findViewById(R.id.card_view);
         list=(ListView)findViewById(R.id.lvAdvertSave);
         GetAdvert(1);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "test1", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
 

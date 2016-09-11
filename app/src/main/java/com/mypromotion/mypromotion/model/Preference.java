@@ -15,6 +15,8 @@ public class Preference {
 
         //SharedPreferences pre = getSharedPreferences(Prefname,MODE_PRIVATE);
         SharedPreferences.Editor edit = getPref(context).edit();
+        edit.putInt("IdAdvert", ListingDto.IdAdvert);
+        edit.putString("NameAdvert", ListingDto.NameAdvert);
         if(UserDto.login) {
             edit.putBoolean("login", UserDto.login);
             edit.putString("UserUrl",UserDto. UserUrl);
@@ -67,6 +69,7 @@ public class Preference {
         UserDto.UserRole=getPref(context).getInt("UserRole", -1);
         UserDto.UserLast=getPref(context).getString("FacebookId", "");
         UserDto.UserPass=getPref(context).getString("UserPass", "");
-
+        ListingDto.IdAdvert=getPref(context).getInt("IdAdvert",0);
+        ListingDto.NameAdvert=getPref(context).getString("NameAdvert", "");
     }
 }

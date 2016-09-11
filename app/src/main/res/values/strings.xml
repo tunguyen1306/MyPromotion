@@ -11,6 +11,7 @@
     <string name="title_activity_register">Đăng ký</string>
     <string name="title_activity_setting_acount">Cài đặt tài khoản</string>
     <string name="title_activity_advert_save">Sản phẩm đã xem</string>
+    <string name="title_activity_advert_deatil">Chi tiết sản phẩm</string>
     <string name="title_home">Trang chủ</string>
     <string name="title_clothes">Quần áo</string>
     <string name="title_bag">Túi xách</string>

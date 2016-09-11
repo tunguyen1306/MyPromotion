@@ -30,4 +30,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="TwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
 </resources>

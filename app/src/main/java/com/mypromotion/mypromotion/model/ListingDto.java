@@ -4,7 +4,8 @@ package com.mypromotion.mypromotion.model;
  * Created by TuNguyen on 09/06/2016.
  */
 public class ListingDto {
-
+    public static int IdAdvert;
+    public static String NameAdvert;
     public ListingDto(int AdvertId,String AdvertName,String AdvertImg,String AdvertPrice) {
         this.AdvertId=AdvertId;
         this.AdvertName=AdvertName;

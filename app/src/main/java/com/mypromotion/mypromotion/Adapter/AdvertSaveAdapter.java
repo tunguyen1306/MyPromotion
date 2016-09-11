@@ -1,6 +1,8 @@
 package com.mypromotion.mypromotion.Adapter;
 
 import android.content.Context;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,9 @@ import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.ListingDto;
+import com.mypromotion.mypromotion.model.Preference;
+import com.mypromotion.mypromotion.model.UserDto;
+import com.mypromotion.mypromotion.view.activity.AdvertDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -68,8 +73,15 @@ public class AdvertSaveAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListingDto listingDto=listingDtos.get(position);
-                //Toast.makeText(_Context,_Context.getResources().getInteger(listingDto.AdvertId), Toast.LENGTH_SHORT).show();
+                Intent intent_login=new Intent(_Context,AdvertDetail.class);
+                ListingDto.IdAdvert=listingDtos.get(position).getAdvertId();
+                ListingDto.NameAdvert = listingDtos.get(position).getAdvertName();
+                Preference.savePreference(_Context.getApplicationContext());
+                intent_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                _Context.startActivity(intent_login);
+
+
+
             }
         });
         return convertView;

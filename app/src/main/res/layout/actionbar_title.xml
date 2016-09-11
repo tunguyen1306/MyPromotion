@@ -28,7 +28,17 @@
         android:gravity="center"
         android:textSize="18sp"
         android:visibility="visible"
-        android:text="Title"/>
+        />
+    <TextView
+        android:id="@+id/tv_title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="60dp"
+        android:gravity="bottom"
+        android:layout_alignBottom="@+id/tv_title"
+       />
     <LinearLayout
         android:id="@+id/ln_save"
         android:layout_width="50dp"
