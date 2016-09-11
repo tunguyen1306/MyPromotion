@@ -16,6 +16,8 @@
     <string name="title_clothes">Quần áo</string>
     <string name="title_bag">Túi xách</string>
     <string name="title_shose">Giầy dép</string>
+    <string name="title_Detail">Chi tiết sản phẩm</string>
+    <string name="title_relate">sản phẩm liên quan</string>
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

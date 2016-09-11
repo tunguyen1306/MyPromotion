@@ -28,13 +28,16 @@
         <activity
             android:name="com.mypromotion.mypromotion.view.activity.Login"
             android:label="@string/title_activity_login" >
-        </activity>
+        </activity> <activity
+        android:name="com.mypromotion.mypromotion.view.fragment.FraAdvertRelateActivity"
+        android:label="@string/title_activity_login" >
+    </activity>
         <activity
             android:name="com.mypromotion.mypromotion.view.activity.AdvertSave"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-        android:name="com.mypromotion.mypromotion.view.activity.AdvertDetail"
+        android:name="com.mypromotion.mypromotion.view.activity.DetailAdvert"
         android:label="@string/title_activity_login" >
     </activity>
         <activity
