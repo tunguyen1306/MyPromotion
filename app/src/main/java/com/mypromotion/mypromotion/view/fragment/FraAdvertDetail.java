@@ -34,6 +34,7 @@ public class FraAdvertDetail extends Fragment {
     private static ViewPager mPager;
     String title_name;
     View view;
+    UnderlinePageIndicator indicator;
     private ArrayList<String> ImagesArray = new ArrayList<String>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,12 +46,9 @@ public class FraAdvertDetail extends Fragment {
         detail_address=(TextView)view.findViewById(R.id.detail_address);
         detail_advertId=(TextView)view.findViewById(R.id.detail_advertId);
         info = (ExpandableTextView)view. findViewById(R.id.detail_description);
+        indicator = (UnderlinePageIndicator)view.findViewById(R.id.indicator);
+        mPager=(ViewPager)view.findViewById(R.id.pagerDetail);
 
-//
-//        UnderlinePageIndicator indicator = (UnderlinePageIndicator)
-//                view.findViewById(R.id.indicator);
-//        indicator.setViewPager(mPager);
-//        indicator.setFades(false);
         return view;
     }
     public void GetAdvertDetail(final int idAvert)
@@ -63,12 +61,18 @@ public class FraAdvertDetail extends Fragment {
                         detail_price.setText(userDtos.get(0).AdvertPrice.toString());
                         detail_address.setText(userDtos.get(0).AdvertStreet);
                         info.setText(userDtos.get(0).AdvertDescription);
-//                        ImagesArray.add(userDtos.get(0).getAdvertImg());
-//                        mPager.setAdapter(new ImageAdapter(getActivity(), ImagesArray));
-//                        UnderlinePageIndicator indicator = (UnderlinePageIndicator)
-//                                view.findViewById(R.id.indicator);
-//                        indicator.setViewPager(mPager);
-//                        indicator.setFades(false);
+                        String urlImage=userDtos.get(0).getAdvertImg();
+                        if (userDtos.get(0).getAdvertImg()!=null) {
+                            String[] listImg=urlImage.split(",");
+                            for (int i=0;i<listImg.length;i++) {
+                                ImagesArray.add(listImg[i]);
+                            }
+                        }
+
+                        mPager.setAdapter(new ImageAdapter(getActivity(), ImagesArray));
+                        indicator.setViewPager(mPager);
+                        indicator.setFades(false);
+
                     }
 
                     @Override

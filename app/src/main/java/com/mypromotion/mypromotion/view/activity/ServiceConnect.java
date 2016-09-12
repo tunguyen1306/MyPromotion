@@ -2,6 +2,7 @@ package com.mypromotion.mypromotion.view.activity;
 
 
 import com.mypromotion.mypromotion.model.ListingDto;
+import com.mypromotion.mypromotion.model.SlideDto;
 import com.mypromotion.mypromotion.model.UserDto;
 import com.mypromotion.mypromotion.model.data_list;
 
@@ -29,7 +30,7 @@ public interface ServiceConnect {
             @Body UserDto item,
              Callback<List<UserDto>> items);
     @GET("/GetAdvert/")
-    void GetAdvert(@Query("pageNum")int pageNum,
+    void GetAdvertSave(@Query("pageNum")int pageNum,
                    Callback<List<ListingDto>> items);
 
     @GET("/GetAdvert/")
@@ -40,4 +41,6 @@ public interface ServiceConnect {
     @POST("/Upload/user/PostUserImage")
     void UploadFile(@Part("file1")TypedFile file1,
                     Callback<data_list> callback);
+    @GET("/Slide/")
+    void GetSlide(Callback<List<SlideDto>> items);
 }

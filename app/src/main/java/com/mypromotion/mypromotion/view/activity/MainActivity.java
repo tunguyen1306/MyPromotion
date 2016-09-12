@@ -30,7 +30,6 @@ import com.facebook.login.LoginManager;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.model.UserDto;
-import com.mypromotion.mypromotion.view.fragment.FraAdvertRelateActivity;
 import com.mypromotion.mypromotion.view.fragment.FraShose;
 import com.mypromotion.mypromotion.view.fragment.Fragment1;
 import com.mypromotion.mypromotion.view.fragment.Fragment2;
@@ -178,8 +177,7 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
             case R.id.nav_about_products:
                 break;
             case R.id.nav_email:
-                Intent acount_setting1=new Intent(getApplicationContext(),FraAdvertRelateActivity.class);
-                startActivity(acount_setting1);
+
                 break;
             case R.id.nav_advert_save:
                 Intent advert_save=new Intent(getApplicationContext(),AdvertSave.class);

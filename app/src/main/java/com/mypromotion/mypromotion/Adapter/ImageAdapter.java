@@ -56,7 +56,7 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup view, final int  position) {
         View imageLayout = inflater.inflate(R.layout.image_detail, view, false);
         assert imageLayout != null;
-        final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
+        final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.imageDetail);
 //        myProgress = new CustomProgressDialog(context);
 //        myProgress.show("");
         DisplayImageOptions mDisplayImageOptions = new DisplayImageOptions.Builder()

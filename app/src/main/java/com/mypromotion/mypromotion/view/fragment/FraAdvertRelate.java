@@ -22,7 +22,7 @@ public class FraAdvertRelate  extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          container = (ViewGroup) inflater.inflate(
-                R.layout.fragment_screen_slide_page, container, false);
+                R.layout.fragment_advert_relate, container, false);
         return container;
     }
 }

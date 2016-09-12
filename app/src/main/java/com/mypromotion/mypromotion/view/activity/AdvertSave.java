@@ -96,7 +96,7 @@ public class AdvertSave extends ActionBarActivity {
     public void GetAdvert(int pageNum)
     {
         ResClient resClient=new ResClient();
-        resClient.GetService().GetAdvert(pageNum
+        resClient.GetService().GetAdvertSave(pageNum
                 , new Callback<List<ListingDto>>() {
                     @Override
                     public void success(List<ListingDto> userDtos, Response response) {
