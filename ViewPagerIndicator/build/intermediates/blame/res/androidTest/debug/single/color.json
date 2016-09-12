@@ -1,18 +1,10 @@
 [
     {
-        "merged": "D:\\Company\\Android\\myPromotion\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
-        "source": "D:\\Company\\Android\\myPromotion\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+        "merged": "C:\\MyPromotion\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "C:\\MyPromotion\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     },
     {
-        "merged": "C:\\Users\\TuNguyen\\Downloads\\mbnd\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
-        "source": "C:\\Users\\TuNguyen\\Downloads\\mbnd\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
-    },
-    {
-        "merged": "C:\\Users\\TuNguyen\\Downloads\\mbnd\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
-        "source": "C:\\Users\\TuNguyen\\Downloads\\mbnd\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
-    },
-    {
-        "merged": "D:\\Company\\Android\\myPromotion\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
-        "source": "D:\\Company\\Android\\myPromotion\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+        "merged": "C:\\MyPromotion\\ViewPagerIndicator\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "C:\\MyPromotion\\ViewPagerIndicator\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
     }
 ]
