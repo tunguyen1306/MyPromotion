@@ -56,7 +56,7 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_home, container, false);
         lv_advert_feauture = (TwoWayView) view.findViewById(R.id.lv_advert_feauture);
-//        indicator_banel=(InkPageIndicator)view.findViewById(R.id.indicator_banel);
+       indicator_banel=(InkPageIndicator)view.findViewById(R.id.indicator_banel);
         callServiceAdvertFeauture();
         callServiceSlide();
         return view;
@@ -150,7 +150,7 @@ public class Home extends Fragment {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("myLogs", "-------ERROR-------");
+                        Log.d("myLogs", "-------ERROR-------Slide");
                         Log.d("myLogs", Log.getStackTraceString(error));
                     }
                 });

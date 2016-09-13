@@ -12,11 +12,17 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:scrollbars="none">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="12dp"-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:orientation="vertical">-->
+           <!---->
+        <!--</LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
             android:orientation="vertical">
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager_banner"
@@ -35,11 +41,6 @@
                 app:dotDiameter="8dp"
                 app:dotGap="8dp"
                 app:pageIndicatorColor="#ffffff" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
             <FrameLayout
                 android:id="@+id/fr_advert_feauture"
                 android:layout_width="match_parent"
