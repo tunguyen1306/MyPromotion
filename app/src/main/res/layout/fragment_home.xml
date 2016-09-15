@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
+
         android:layout_marginBottom="12dp"
         android:scrollbars="none">
         <!--<LinearLayout-->
@@ -27,20 +27,20 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager_banner"
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:layout_alignParentTop="true" />
 
             <com.pixelcan.inkpageindicator.InkPageIndicator
-                android:id="@+id/indicator_banel"
+                android:id="@+id/indicator_slide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="12dp"
                 app:animationDuration="320"
-                app:currentPageIndicatorColor="#ff0000"
+                app:currentPageIndicatorColor="@color/greenToolBarBg1"
                 app:dotDiameter="8dp"
                 app:dotGap="8dp"
-                app:pageIndicatorColor="#ffffff" />
+                app:pageIndicatorColor="@color/greenToolBarBg" />
             <FrameLayout
                 android:id="@+id/fr_advert_feauture"
                 android:layout_width="match_parent"

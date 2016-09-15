@@ -29,8 +29,6 @@ public class SlideAdapter extends PagerAdapter {
     List<SlideDto> list_slide;
     private LayoutInflater inflater;
     private Context context;
-    final Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18001207"));
-
     public SlideAdapter(Context context, List<SlideDto> list_slide) {
         this.context = context;
         this.list_slide=list_slide;
@@ -52,10 +50,14 @@ public class SlideAdapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.slide_image, view, false);
         assert imageLayout != null;
         final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.SlideImage);
+        list_slide.get(position).getImg_slide();
+        if(list_slide.get(position).getImg_slide()!=null){
+            Picasso.with(context).load(list_slide.get(position).getImg_slide()).into(imageView);
+        }
+        else {
+            Picasso.with(context).load(R.drawable.icon_home).into(imageView);
+        }
 
-        String a="http://www.muabannhadat.vn/uploads/images/005/023/808/e9D5XQuWLU-Z_ATx2XW-Ag_2.jpg";
-//        Picasso.with(context).load(list_banellisting.get(position).getAnh_duan()).into(imageView);
-        Picasso.with(context).load(a).into(imageView);
 
         view.addView(imageLayout, 0);
 
