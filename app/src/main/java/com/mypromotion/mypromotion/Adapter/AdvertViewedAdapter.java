@@ -1,9 +1,6 @@
 package com.mypromotion.mypromotion.Adapter;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mypromotion.mypromotion.R;
-import com.mypromotion.mypromotion.model.BrandDto;
 import com.mypromotion.mypromotion.model.ListingDto;
 import com.squareup.picasso.Picasso;
 
@@ -26,9 +22,9 @@ import java.util.List;
 /**
  * Created by TuNguyen on 09/10/2016.
  */
-public class ProjectFeaturedAdapter extends RecyclerView.Adapter<ProjectFeaturedAdapter.SimpleViewHolder> {
+public class AdvertViewedAdapter extends RecyclerView.Adapter<AdvertViewedAdapter.SimpleViewHolder> {
     private final Context mContext;
-    List<BrandDto> _list = new ArrayList<>();
+    List<ListingDto> _list = new ArrayList<>();
     String from_activity;
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
@@ -46,7 +42,7 @@ public class ProjectFeaturedAdapter extends RecyclerView.Adapter<ProjectFeatured
         }
     }
 
-    public ProjectFeaturedAdapter(Context context, List<BrandDto> list, String from_activity) {
+    public AdvertViewedAdapter(Context context, List<ListingDto> list, String from_activity) {
         mContext = context;
         this._list = list;
         this.from_activity = from_activity;
@@ -54,23 +50,23 @@ public class ProjectFeaturedAdapter extends RecyclerView.Adapter<ProjectFeatured
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycle_adapter, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_viewed_adapter, parent, false);
 
         return new SimpleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
-        if (_list.get(position).getId_brand_promotiom() == 0) {
+        if (_list.get(position).getAdvertId() == 0) {
             try {
                 holder.image.setImageResource(R.drawable.ic_image);
             } catch (Exception ex) {
             }
         } else {
-            Picasso.with(mContext).load(_list.get(position).getImg_brand_promotiom()).resize(180, 180).into(holder.image);
+            Picasso.with(mContext).load(_list.get(position).getAdvertImg()).resize(180, 180).into(holder.image);
         }
-        holder.title.setText(_list.get(position).getName_brand_promotiom());
-        //holder.price.setText(_list.get(position).getPercent_brand_promotiom());
+        holder.title.setText(_list.get(position).getAdvertName());
+        holder.price.setText(_list.get(position).getAdvertPrice());
         holder.ln_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,6 +1,7 @@
 package com.mypromotion.mypromotion.view.activity;
 
 
+import com.mypromotion.mypromotion.model.BrandDto;
 import com.mypromotion.mypromotion.model.ListingDto;
 import com.mypromotion.mypromotion.model.SlideDto;
 import com.mypromotion.mypromotion.model.UserDto;
@@ -43,4 +44,6 @@ public interface ServiceConnect {
                     Callback<data_list> callback);
     @GET("/Slide/")
     void GetSlide(Callback<List<SlideDto>> items);
+    @GET("/GetBrand/")
+    void GetBrand(Callback<List<BrandDto>> items);
 }

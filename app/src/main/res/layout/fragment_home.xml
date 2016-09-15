@@ -56,7 +56,7 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:layout_marginLeft="12dp"
-                    android:text="Shop nổi bật"
+                    android:text="Shop tiêu biểu"
                     android:textColor="@color/_404141"
                     android:textSize="20sp" />
 
@@ -78,7 +78,42 @@
                 android:layout_marginLeft="12dp"
                 app:twowayview_layoutManager="ListLayoutManager" />
 
+            <FrameLayout
+                android:id="@+id/fr_advert_viewed"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="10dp"
+                android:background="@drawable/btn_background_grey"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tv_advert_viewed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center"
+                    android:layout_marginLeft="12dp"
+                    android:text="Sản phẩm xem nhiều"
+                    android:textColor="@color/_404141"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:layout_marginRight="12dp"
+                    android:text="Xem tất cả"
+                    android:textColor="@color/greenToolBarBg"
+                    android:textSize="16sp" />
+            </FrameLayout>
+
+            <org.lucasr.twowayview.widget.TwoWayView
+                android:id="@+id/lv_advert_viewed"
+                style="@style/TwoWayView"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginLeft="12dp"
+                app:twowayview_layoutManager="ListLayoutManager" />
         </LinearLayout>
     </ScrollView>
 
