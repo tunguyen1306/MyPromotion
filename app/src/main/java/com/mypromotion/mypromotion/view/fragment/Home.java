@@ -67,6 +67,7 @@ public class Home extends Fragment {
 
         try {
             for (int i = 0; i < ItemSlide.size(); i++) {
+
                 pager_banner.setAdapter(new SlideAdapter(getActivity(), ItemSlide));
                 indicator_banel.setViewPager(pager_banner);
             }
