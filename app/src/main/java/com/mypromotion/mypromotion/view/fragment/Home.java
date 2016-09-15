@@ -56,25 +56,33 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_home, container, false);
         lv_advert_feauture = (TwoWayView) view.findViewById(R.id.lv_advert_feauture);
-       indicator_banel=(InkPageIndicator)view.findViewById(R.id.indicator_banel);
+        indicator_banel=(InkPageIndicator)view.findViewById(R.id.indicator_slide);
+        pager_banner=(ViewPager)  view.findViewById(R.id.pager_banner);
         callServiceAdvertFeauture();
         callServiceSlide();
         return view;
     }
+    ///LoadSlide///////
     private void loadSilde(){
 
         ItemSlide = getDataSlide();
-
         try {
             for (int i = 0; i < ItemSlide.size(); i++) {
+<<<<<<< HEAD
 
                 pager_banner.setAdapter(new SlideAdapter(getActivity(), ItemSlide));
+=======
+                SlideAdapter slideAdapter =new SlideAdapter(getActivity(), ItemSlide);
+                pager_banner.setAdapter(slideAdapter);
+>>>>>>> 62618b9327129a7b21623605fa4b87c7d8b4e69f
                 indicator_banel.setViewPager(pager_banner);
             }
-        } catch (Exception ex) {
-            String a="";
+        }
+        catch (Exception ex) {
+
         }
     }
+    ///End LoadSlide///
     private void loadDataAdvertFeauture() {
 
         ItemAdvertFeauture = getAllItemsAdvertFeauture();
@@ -88,6 +96,7 @@ public class Home extends Fragment {
         }
     }
 
+
     private List<ListingDto> getAllItemsAdvertFeauture() {
         List<ListingDto> items = new ArrayList<>();
         for (int i = 0; i < listIdAdvertFeauture.size(); i++) {
@@ -99,6 +108,13 @@ public class Home extends Fragment {
                             listPriceAdvertFeauture.get(i)
                     )
             );
+        }
+        return items;
+    }
+    private List<SlideDto>getDataSlide(){
+        List<SlideDto> items = new ArrayList<>();
+        for (int i=0;i<list_id_slide.size();i++) {
+            items.add(new SlideDto(list_id_slide.get(i),list_img_slide.get(i),list_title_slide.get(i),list_des_slide.get(i)));
         }
         return items;
     }
@@ -118,7 +134,6 @@ public class Home extends Fragment {
                         }
                         loadSilde();
                     }
-
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("myLogs", "-------ERROR-------");
@@ -126,13 +141,7 @@ public class Home extends Fragment {
                     }
                 });
     }
-    private List<SlideDto>getDataSlide(){
-        List<SlideDto> items = new ArrayList<>();
-        for (int i=0;i<list_id_slide.size();i++) {
-            items.add(new SlideDto(list_id_slide.get(i),list_img_slide.get(i),list_title_slide.get(i),list_des_slide.get(i)));
-        }
-        return items;
-    }
+
     public void callServiceAdvertFeauture() {
         ResClient restClient = new ResClient();
         restClient.GetService().GetAdvertSave(1
@@ -148,7 +157,6 @@ public class Home extends Fragment {
                         }
                         loadDataAdvertFeauture();
                     }
-
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("myLogs", "-------ERROR-------Slide");
