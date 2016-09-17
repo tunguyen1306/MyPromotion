@@ -2,6 +2,7 @@ package com.mypromotion.mypromotion.view.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.facebook.FacebookSdk;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.ListingDto;
@@ -31,8 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class DetailAdvert extends ActionBarActivity  {
+public class DetailBrand extends ActionBarActivity  {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -54,7 +54,7 @@ public class DetailAdvert extends ActionBarActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.detail_advert);
+        setContentView(R.layout.detail_brand);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -100,8 +100,8 @@ public class DetailAdvert extends ActionBarActivity  {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FraAdvertDetail(),getResources().getString(R.string.title_Detail));
-        adapter.addFrag(new FraAdvertRelate(),getResources().getString(R.string.title_relate));
+        adapter.addFrag(new FraAdvertDetail(),"Chi tiết Shop");
+        adapter.addFrag(new FraAdvertRelate(),"Shop liên quan");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
