@@ -133,10 +133,11 @@ public class MainActivity extends ActionBarActivity implements NavigationView.On
         adapter.addFrag(new Fragment1(),getResources().getString(R.string.title_bag));
         adapter.addFrag(new Fragment2(),getResources().getString(R.string.title_clothes));
         adapter.addFrag(new FraShose(),getResources().getString(R.string.title_shose));
+        adapter.addFrag(new FraShose(),"Khác");
 
 
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
     }
     public void setupActionBar(){
         setSupportActionBar(toolbar);

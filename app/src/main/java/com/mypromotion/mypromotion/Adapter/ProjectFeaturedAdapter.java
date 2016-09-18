@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.BrandDto;
 import com.mypromotion.mypromotion.model.ListingDto;
+import com.mypromotion.mypromotion.model.Preference;
+import com.mypromotion.mypromotion.view.activity.DetailAdvert;
+import com.mypromotion.mypromotion.view.activity.DetailBrand;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -78,8 +81,14 @@ public class ProjectFeaturedAdapter extends RecyclerView.Adapter<ProjectFeatured
                 animation.setDuration(1000);
                 view.startAnimation(animation);
 
+                Intent intent_login=new Intent(mContext,DetailBrand.class);
+                BrandDto.idBrandPromotiom=_list.get(position).getId_brand_promotiom();
+                BrandDto.NameBrandPromotiom = _list.get(position).getName_brand_promotiom();
+                BrandDto.idCategory = _list.get(position).getCategory_id_brand_promotion();
+                Preference.savePreference(mContext.getApplicationContext());
+                intent_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent_login);
 
-                Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
 
             }
         });

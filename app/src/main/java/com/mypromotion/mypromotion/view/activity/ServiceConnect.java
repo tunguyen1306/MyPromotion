@@ -46,4 +46,24 @@ public interface ServiceConnect {
     void GetSlide(Callback<List<SlideDto>> items);
     @GET("/GetBrand/")
     void GetBrand(Callback<List<BrandDto>> items);
+    @GET("/GetBrand/")
+    void GetBrandById(
+            @Query("idBrand")int idBrand,
+            Callback<List<BrandDto>> items);
+    @GET("/GetBrand/")
+    void GetAdvertByBrand(
+            @Query("idAdvertBrand")int idBrand,
+            Callback<List<ListingDto>> items);
+    @GET("/GetBrand/")
+    void GetBrandByCategoryId(
+            @Query("idCategory")int idCategory,
+            Callback<List<BrandDto>> items);
+
+    @GET("/GetAdvert/")
+    void GetAdvertRelate(  @Query("idAdvert")int idAdvert,
+                          @Query("idCategory")int idCategory,
+                           @Query("pageNum")int pageNum,
+                         @Query("idBrand")int idBrand,
+                         Callback<List<ListingDto>> items);
+
 }

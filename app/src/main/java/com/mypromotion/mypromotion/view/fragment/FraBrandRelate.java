@@ -1,26 +1,19 @@
 package com.mypromotion.mypromotion.view.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.mypromotion.mypromotion.Adapter.AdvertRelateAdapter;
+import com.mypromotion.mypromotion.Adapter.AdvertSaveAdapter;
 import com.mypromotion.mypromotion.Adapter.BrandRelateAdapter;
 import com.mypromotion.mypromotion.R;
 import com.mypromotion.mypromotion.model.BrandDto;
 import com.mypromotion.mypromotion.model.ListingDto;
-import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.view.activity.ResClient;
 
 import java.util.List;
@@ -30,28 +23,27 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by TuNguyen on 09/11/2016.
+ * Created by TuNguyen on 09/17/2016.
  */
-public class FraAdvertRelate  extends Fragment {
+public class FraBrandRelate extends Fragment {
     CardView cardView;
     ListView list;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_advert_relate, container, false);
-        cardView=(CardView)view.findViewById(R.id.cardViewAdvertRelate);
-        list=(ListView)view.findViewById(R.id.lvAdverRelate);
-        Preference.restorePreference(getActivity());
-        GetAdvertRelate(ListingDto.IdAdvert,ListingDto.IdAdvertCategory,1,ListingDto.IdAdvertBrand);
+        view = inflater.inflate(R.layout.fragment_brand_relate, container, false);
+        cardView=(CardView)view.findViewById(R.id.card_view);
+        list=(ListView)view.findViewById(R.id.lvBrandRelate);
+        GetBrandRelate(1);
         return view;
     }
-    public void GetAdvertRelate(int idAdvert ,int idCategory,int pageNum ,int IdBrand )    {
+    public void GetBrandRelate(int idCategory)    {
         ResClient resClient=new ResClient();
-        resClient.GetService().GetAdvertRelate(idAdvert ,idCategory,pageNum,IdBrand
-                , new Callback<List<ListingDto>>() {
+        resClient.GetService().GetBrandByCategoryId(idCategory
+                , new Callback<List<BrandDto>>() {
                     @Override
-                    public void success(List<ListingDto> userDtos, Response response) {
-                        list.setAdapter(new AdvertRelateAdapter(getActivity(),userDtos));
+                    public void success(List<BrandDto> userDtos, Response response) {
+                        list.setAdapter(new BrandRelateAdapter(getActivity(),userDtos));
                     }
 
                     @Override

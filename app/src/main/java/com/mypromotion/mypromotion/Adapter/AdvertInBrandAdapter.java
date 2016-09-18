@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by TuNguyen on 09/10/2016.
  */
-public class AdvertViewedAdapter extends RecyclerView.Adapter<AdvertViewedAdapter.SimpleViewHolder> {
+public class AdvertInBrandAdapter extends RecyclerView.Adapter<AdvertInBrandAdapter.SimpleViewHolder> {
     private final Context mContext;
     List<ListingDto> _list = new ArrayList<>();
     String from_activity;
@@ -45,7 +45,7 @@ public class AdvertViewedAdapter extends RecyclerView.Adapter<AdvertViewedAdapte
         }
     }
 
-    public AdvertViewedAdapter(Context context, List<ListingDto> list, String from_activity) {
+    public AdvertInBrandAdapter(Context context, List<ListingDto> list, String from_activity) {
         mContext = context;
         this._list = list;
         this.from_activity = from_activity;
@@ -53,7 +53,7 @@ public class AdvertViewedAdapter extends RecyclerView.Adapter<AdvertViewedAdapte
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_viewed_adapter, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_advert_in_brand_adapter, parent, false);
 
         return new SimpleViewHolder(view);
     }
@@ -82,6 +82,7 @@ public class AdvertViewedAdapter extends RecyclerView.Adapter<AdvertViewedAdapte
                 Preference.savePreference(mContext.getApplicationContext());
                 intent_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent_login);
+
 
             }
         });

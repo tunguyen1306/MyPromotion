@@ -4,9 +4,10 @@ package com.mypromotion.mypromotion.model;
  * Created by TuNguyen on 09/16/2016.
  */
 public class BrandDto {
+    public static int idBrandPromotiom,idCategory;
+    public static String NameBrandPromotiom;
     public int id_brand_promotiom ;
     public String name_brand_promotiom ;
-    public String address_brand_promotiom ;
     public BrandDto(int id_brand_promotiom,String name_brand_promotiom,String img_brand_promotiom,int percent_brand_promotiom) {
         this.id_brand_promotiom = id_brand_promotiom;
         this.name_brand_promotiom = name_brand_promotiom;
@@ -173,4 +174,14 @@ public class BrandDto {
     public String modifi_date_brand_promotion ;
     public String create_user_brand_promotion ;
     public String modifi_user_brand_promotion ;
+
+    public static String getNameBrandPromotiom() {
+        return NameBrandPromotiom;
+    }
+
+    public static void setNameBrandPromotiom(String nameBrandPromotiom) {
+        NameBrandPromotiom = nameBrandPromotiom;
+    }
+
+    public String address_brand_promotiom ;
 }

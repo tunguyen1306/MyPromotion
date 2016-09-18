@@ -23,10 +23,13 @@ import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.mypromotion.mypromotion.R;
+import com.mypromotion.mypromotion.model.BrandDto;
 import com.mypromotion.mypromotion.model.ListingDto;
 import com.mypromotion.mypromotion.model.Preference;
 import com.mypromotion.mypromotion.view.fragment.FraAdvertDetail;
 import com.mypromotion.mypromotion.view.fragment.FraAdvertRelate;
+import com.mypromotion.mypromotion.view.fragment.FraBrandDetail;
+import com.mypromotion.mypromotion.view.fragment.FraBrandRelate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +103,8 @@ public class DetailBrand extends ActionBarActivity  {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FraAdvertDetail(),"Chi tiết Shop");
-        adapter.addFrag(new FraAdvertRelate(),"Shop liên quan");
+        adapter.addFrag(new FraBrandDetail(),"Chi tiết Shop");
+        adapter.addFrag(new FraBrandRelate(),"Shop liên quan");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
     }
@@ -117,7 +120,7 @@ public class DetailBrand extends ActionBarActivity  {
         LinearLayout ln_back = (LinearLayout) mCustomView.findViewById(R.id.ln_back);
         TextView tv_title = (TextView) mCustomView.findViewById(R.id.tv_title);
         TextView tv_title_name = (TextView) mCustomView.findViewById(R.id.tv_title_name);
-        tv_title.setText(ListingDto.NameAdvert);
+        tv_title.setText(BrandDto.NameBrandPromotiom);
         ln_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

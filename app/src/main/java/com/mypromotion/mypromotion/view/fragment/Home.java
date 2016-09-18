@@ -45,6 +45,7 @@ public class Home extends Fragment {
     List<String> listNameBrandFeauture = new ArrayList<>();
     List<Integer> listPercentBrandFeauture = new ArrayList<>();
     //////////End feauture////////
+
     /////AdvertViewed////////////////
     TwoWayView lv_advert_Viewed;
     List<ListingDto> ItemAdvertViewed;

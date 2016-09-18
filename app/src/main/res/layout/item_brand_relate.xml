@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewBrandRelate"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/imgBrandRelate"
+            android:layout_width="125dp"
+            android:layout_height="95dp"
+            android:layout_gravity="left"
+            android:contentDescription=""
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="0.27"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/txtNameBrandRelate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:text="Title"
+                android:textColor="@color/TextColor"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtAddressBrandRelate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="left|center"
+                android:maxLines="2"
+                android:text="Place"
+                android:textColor="@color/TextColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtPercentBrandRelate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:inputType="text"
+                android:text="0 VNĐ"
+                android:textColor="@color/TextColor"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

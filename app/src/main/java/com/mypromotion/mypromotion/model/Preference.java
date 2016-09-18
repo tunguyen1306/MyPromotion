@@ -17,6 +17,14 @@ public class Preference {
         SharedPreferences.Editor edit = getPref(context).edit();
         edit.putInt("IdAdvert", ListingDto.IdAdvert);
         edit.putString("NameAdvert", ListingDto.NameAdvert);
+        //////Brand///////
+        edit.putInt("IdBrand", BrandDto.idBrandPromotiom);
+        edit.putInt("IdCategory", BrandDto.idCategory);
+        edit.putString("NameBrand", BrandDto.NameBrandPromotiom);
+        edit.putInt("IdAdvertBrand", ListingDto.IdAdvertBrand);
+        edit.putInt("IdAdvertCategory", ListingDto.IdAdvertCategory);
+        edit.putString("AdvertNameBrand", ListingDto.AdvertNameBrand);
+        /////End Brand////
         if(UserDto.login) {
             edit.putBoolean("login", UserDto.login);
             edit.putString("UserUrl",UserDto. UserUrl);
@@ -71,5 +79,13 @@ public class Preference {
         UserDto.UserPass=getPref(context).getString("UserPass", "");
         ListingDto.IdAdvert=getPref(context).getInt("IdAdvert",0);
         ListingDto.NameAdvert=getPref(context).getString("NameAdvert", "");
+        BrandDto.idBrandPromotiom=getPref(context).getInt("IdBrand",0);
+        BrandDto.NameBrandPromotiom=getPref(context).getString("NameBrand", "");
+        BrandDto.idCategory=getPref(context).getInt("IdCategory",0);
+
+        ListingDto.IdAdvertBrand=getPref(context).getInt("IdAdvertBrand",0);
+        ListingDto.AdvertNameBrand=getPref(context).getString("AdvertNameBrand", "");
+        ListingDto.IdAdvertCategory=getPref(context).getInt("IdAdvertCategory",0);
+
     }
 }

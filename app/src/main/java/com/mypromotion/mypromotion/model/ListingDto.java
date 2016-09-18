@@ -4,8 +4,8 @@ package com.mypromotion.mypromotion.model;
  * Created by TuNguyen on 09/06/2016.
  */
 public class ListingDto {
-    public static int IdAdvert;
-    public static String NameAdvert;
+    public static int IdAdvert,IdAdvertCategory,IdAdvertBrand;
+    public static String NameAdvert,AdvertNameBrand;
     public ListingDto(int AdvertId,String AdvertName,String AdvertImg,String AdvertPrice) {
         this.AdvertId=AdvertId;
         this.AdvertName=AdvertName;
@@ -138,4 +138,32 @@ public class ListingDto {
     public String CategoryName;
     public String AdvertImg;
     public String AdvertPrice;
+
+    public String getAdvertBrandName() {
+        return AdvertBrandName;
+    }
+
+    public void setAdvertBrandName(String advertBrandName) {
+        AdvertBrandName = advertBrandName;
+    }
+
+    public String AdvertBrandName;
+    public int getAdvertCategoryId() {
+        return AdvertCategoryId;
+    }
+
+    public void setAdvertCategoryId(int advertCategoryId) {
+        AdvertCategoryId = advertCategoryId;
+    }
+
+    public int getAdvertBrandId() {
+        return AdvertBrandId;
+    }
+
+    public void setAdvertBrandId(int advertBrandId) {
+        AdvertBrandId = advertBrandId;
+    }
+
+    public int AdvertCategoryId;
+    public int AdvertBrandId;
 }
