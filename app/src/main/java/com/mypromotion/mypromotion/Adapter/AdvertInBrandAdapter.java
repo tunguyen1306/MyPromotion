@@ -79,6 +79,8 @@ public class AdvertInBrandAdapter extends RecyclerView.Adapter<AdvertInBrandAdap
                 Intent intent_login=new Intent(mContext,DetailAdvert.class);
                 ListingDto.IdAdvert=_list.get(position).getAdvertId();
                 ListingDto.NameAdvert = _list.get(position).getAdvertName();
+                ListingDto.IdAdvertCategory=_list.get(position).getAdvertCategoryId();
+                ListingDto.IdAdvertBrand=_list.get(position).getAdvertBrandId();
                 Preference.savePreference(mContext.getApplicationContext());
                 intent_login.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent_login);
